@@ -9,13 +9,13 @@ export default defineConfig({
   site,
   trailingSlash: 'ignore',
   i18n: {
-    defaultLocale: 'tr',
-    locales: ['tr', 'en'],
+    defaultLocale: 'en',
+    locales: ['en', 'tr'],
     routing: { prefixDefaultLocale: false },
   },
   integrations: [
     sitemap({
-      i18n: { defaultLocale: 'tr', locales: { tr: 'tr-TR', en: 'en-US' } },
+      i18n: { defaultLocale: 'en', locales: { en: 'en-US', tr: 'tr-TR' } },
       filter: (page) => !page.includes('/404'),
     }),
   ],

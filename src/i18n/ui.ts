@@ -1,8 +1,8 @@
-export const languages = { tr: 'Türkçe', en: 'English' } as const;
+export const languages = { en: 'English', tr: 'Türkçe' } as const;
 export type Lang = keyof typeof languages;
 export type Localized<T = string> = Record<Lang, T>;
 
-export const defaultLang: Lang = 'tr';
+export const defaultLang: Lang = 'en';
 
 export const ui = {
   tr: {
@@ -31,6 +31,7 @@ export const ui = {
     'hero.stat.scale': 'günlük sipariş işleyen ürünler',
     'hero.stat.speed': 'daha hızlı component üretimi',
     'hero.scroll': 'Kaydır',
+    totop: 'Başa dön',
 
     'services.eyebrow': 'Hizmetler',
     'services.title': 'Ekibinize katılan bir mühendis, projenizi sahiplenen bir partner.',
@@ -90,6 +91,7 @@ export const ui = {
     'hero.stat.scale': 'daily orders handled by products I built',
     'hero.stat.speed': 'faster component delivery',
     'hero.scroll': 'Scroll',
+    totop: 'Back to top',
 
     'services.eyebrow': 'Services',
     'services.title': 'An engineer who joins your team, a partner who owns your project.',

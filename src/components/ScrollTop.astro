@@ -1,0 +1,97 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!-- Small screens only. Hidden until the hero has scrolled out of view; without JS it never shows. -->
+<button class="to-top" type="button" aria-label={t('totop')} data-to-top hidden>
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M12 19V5M6 11l6-6 6 6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></path>
+  </svg>
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-to-top]');
+  const hero = document.querySelector('.hero');
+
+  if (btn && hero && 'IntersectionObserver' in window) {
+    btn.hidden = false;
+    btn.inert = true;
+
+    new IntersectionObserver(([entry]) => {
+      const show = !entry.isIntersecting;
+      btn.toggleAttribute('data-visible', show);
+      btn.inert = !show;
+    }).observe(hero);
+
+    btn.addEventListener('click', () => {
+      const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+      // Keep keyboard / screen-reader focus in sync with where the page went.
+      document.querySelector<HTMLElement>('.nav__logo')?.focus({ preventScroll: true });
+    });
+  }
+</script>
+
+<style>
+  .to-top {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 55;
+    display: none;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-elev) 85%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--fg);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+    pointer-events: none;
+    transition:
+      opacity 0.3s var(--ease-out),
+      transform 0.3s var(--ease-out);
+  }
+
+  .to-top[data-visible] {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (max-width: 860px) {
+    .to-top:not([hidden]) {
+      display: grid;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .to-top {
+      transition: none;
+    }
+  }
+</style>

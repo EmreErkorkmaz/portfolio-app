@@ -37,27 +37,43 @@ if (copyBtn && navigator.clipboard) {
 }
 
 // 3. Pinned horizontal Process scene. GSAP is fetched only on large screens with motion
-//    allowed, and only when the section is about to enter the viewport.
+//    allowed, once the page has loaded and the main thread is idle, so it never competes
+//    with first paint and is usually ready before the visitor reaches the section.
 const processSection = document.querySelector<HTMLElement>('[data-process]');
 const wide = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+
+// ScrollTrigger restores the scroll position while it sets up the pin, which cancels any
+// smooth anchor scroll in flight. Remember recent in-page link clicks and resume them.
+let pendingAnchor: { hash: string; at: number } | null = null;
+document.addEventListener('click', (e) => {
+  const a = (e.target as Element).closest?.<HTMLAnchorElement>('a[href^="#"]');
+  if (a && a.hash.length > 1) pendingAnchor = { hash: a.hash, at: performance.now() };
+});
+
+function resumeAnchorScroll() {
+  if (!pendingAnchor || performance.now() - pendingAnchor.at > 4000) return;
+  const target = document.getElementById(decodeURIComponent(pendingAnchor.hash.slice(1)));
+  pendingAnchor = null;
+  target?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+}
 
 if (processSection) {
   let started = false;
   const start = () => {
     if (started || !wide.matches) return;
     started = true;
-    import('./scene').then(({ initProcessScene }) => initProcessScene(processSection));
+    import('./scene').then(({ initProcessScene }) => {
+      initProcessScene(processSection);
+      resumeAnchorScroll();
+    });
   };
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        start();
-        if (started) io.disconnect();
-      }
-    },
-    { rootMargin: '100% 0px' },
-  );
-  io.observe(processSection);
+  const whenIdle = () =>
+    'requestIdleCallback' in window
+      ? requestIdleCallback(start, { timeout: 2000 })
+      : setTimeout(start, 1000);
+
+  if (document.readyState === 'complete') whenIdle();
+  else addEventListener('load', whenIdle, { once: true });
   wide.addEventListener('change', start);
 }

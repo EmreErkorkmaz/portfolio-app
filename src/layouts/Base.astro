@@ -42,15 +42,23 @@ const jsonLd = {
   ],
 };
 
-// Runs before first paint: applies the saved theme and flags JS availability so
-// scroll-reveal fallbacks only hide content when JS can reveal it again.
-const bootScript = `(()=>{const d=document.documentElement;d.classList.add('js');try{const t=localStorage.getItem('theme');if(t==='light'||t==='dark')d.dataset.theme=t}catch(e){}})()`;
+// Runs before first paint: applies the saved theme (and matching browser-chrome colour, so
+// overscroll areas never flash the wrong colour) and flags JS availability so scroll-reveal
+// fallbacks only hide content when JS can reveal it again.
+const bootScript = `(()=>{const d=document.documentElement;d.classList.add('js');try{const t=localStorage.getItem('theme');if(t==='light'||t==='dark'){d.dataset.theme=t;const c=t==='dark'?'#0b0b0f':'#f4f2ec';document.querySelectorAll('meta[name="theme-color"]').forEach(m=>m.content=c)}}catch(e){}})()`;
+
+// English lives at "/". Visitors whose explicit choice (saved by the language switch) or,
+// failing that, primary browser language is Turkish are sent to "/tr/" before anything
+// renders. Only the default-language home page carries this; "/tr/" never redirects.
+const isDefaultHome = lang === defaultLang && !noindex;
+const langScript = `(()=>{try{let l=null;try{l=localStorage.getItem('lang')}catch(e){}if(!l)l=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase().slice(0,2);if(l==='tr')location.replace('/tr/'+location.search+location.hash)}catch(e){}})()`;
 ---
 
 <!doctype html>
 <html lang={lang} dir="ltr">
   <head>
     <meta charset="utf-8" />
+    {isDefaultHome && <script is:inline set:html={langScript}></script>}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />

@@ -38,6 +38,7 @@ const links = [
     <div class="nav__actions">
       <a
         class="nav__icon-btn nav__lang"
+        data-lang-switch
         href={localePath(other)}
         hreflang={other}
         lang={other}
@@ -68,17 +69,33 @@ const links = [
 </header>
 
 <script>
-  const btn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
-  btn?.addEventListener('click', () => {
-    const root = document.documentElement;
-    const current =
-      root.dataset.theme ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try {
-      localStorage.setItem('theme', next);
-    } catch {}
-  });
+  const root = document.documentElement;
+  const chromeColor = { light: '#f4f2ec', dark: '#0b0b0f' } as const;
+
+  document
+    .querySelector<HTMLButtonElement>('[data-theme-toggle]')
+    ?.addEventListener('click', () => {
+      const current =
+        root.dataset.theme ??
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      document
+        .querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]')
+        .forEach((m) => (m.content = chromeColor[next]));
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    });
+
+  // An explicit language choice wins over the browser language on later visits.
+  document
+    .querySelector<HTMLAnchorElement>('[data-lang-switch]')
+    ?.addEventListener('click', (e) => {
+      try {
+        localStorage.setItem('lang', (e.currentTarget as HTMLAnchorElement).hreflang);
+      } catch {}
+    });
 </script>
 
 <style>

@@ -1,6 +1,6 @@
 # Emre Erkorkmaz: freelance portfolio
 
-A static, bilingual (TR/EN) portfolio built with [Astro](https://astro.build). It ships almost no
+A static, bilingual (EN at `/`, TR at `/tr/`) portfolio built with [Astro](https://astro.build). It ships almost no
 JavaScript, drives its scroll animations with native CSS, and deploys to Cloudflare Pages on
 every merge to `main`.
 

@@ -8,6 +8,7 @@ import Stack from './Stack.astro';
 import Process from './Process.astro';
 import Engagement from './Engagement.astro';
 import Contact from './Contact.astro';
+import ScrollTop from './ScrollTop.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -32,6 +33,7 @@ const t = useTranslations(lang);
     <Engagement lang={lang} />
     <Contact lang={lang} />
   </main>
+  <ScrollTop lang={lang} />
 </Base>
 
 <script>

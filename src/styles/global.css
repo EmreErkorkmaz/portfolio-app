@@ -8,6 +8,12 @@
 }
 
 html {
+  /* The canvas colour shows during overscroll/rubber-banding; keep it the page colour. */
+  background-color: var(--bg);
+  /* No rubber-band bounce or pull-to-refresh past the page edges. */
+  overscroll-behavior: none;
+  /* Disables double-tap-to-zoom (and its tap delay) while keeping pinch-zoom for accessibility. */
+  touch-action: manipulation;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
@@ -30,6 +36,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
+  overscroll-behavior: none;
 }
 
 h1,

@@ -6,20 +6,20 @@ const tr = useTranslations('tr');
 const en = useTranslations('en');
 ---
 
-<Base lang="tr" title={`404 — ${tr('notfound.title')}`} description={tr('notfound.lead')} noindex>
+<Base lang="en" title={`404 — ${en('notfound.title')}`} description={en('notfound.lead')} noindex>
   <main class="nf container">
     <p class="nf__code">404</p>
-    <h1>{tr('notfound.title')}</h1>
-    <p class="nf__lead">{tr('notfound.lead')}</p>
-    <p class="nf__lead" lang="en">
-      {en('notfound.lead')}
+    <h1>{en('notfound.title')}</h1>
+    <p class="nf__lead">{en('notfound.lead')}</p>
+    <p class="nf__lead" lang="tr">
+      {tr('notfound.lead')}
     </p>
     <div class="nf__actions">
       <a class="btn btn--accent" href="/">
-        {tr('notfound.back')}
-      </a>
-      <a class="btn btn--ghost" href="/en/" lang="en">
         {en('notfound.back')}
+      </a>
+      <a class="btn btn--ghost" href="/tr/" lang="tr">
+        {tr('notfound.back')}
       </a>
     </div>
   </main>
