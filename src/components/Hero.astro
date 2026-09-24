@@ -1,0 +1,268 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { site } from '../data/site';
+import { marquee } from '../data/stack';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const stats = [
+  { value: `${site.yearsOfExperience}+`, label: t('hero.stat.years') },
+  { value: 'M+', label: t('hero.stat.scale') },
+  { value: '10×', label: t('hero.stat.speed') },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="blob blob--a"></div>
+    <div class="blob blob--b"></div>
+    <div class="hero__grid"></div>
+  </div>
+
+  <div class="hero__content container" data-hero-exit>
+    <p class="hero__status" data-intro data-i="0">
+      <span class="status-dot" data-available={site.available}></span>
+      {site.available ? t('hero.available') : t('hero.busy')}
+    </p>
+
+    <p class="hero__role" data-intro data-i="1">
+      {site.name} · {t('hero.role')}
+    </p>
+
+    <h1 id="hero-title" class="hero__title">
+      <span class="hero__line">{t('hero.title.a')}</span>
+      <span class="hero__line hero__line--accent">{t('hero.title.b')}</span>
+    </h1>
+
+    <p class="hero__lead" data-intro data-i="2">
+      {t('hero.lead')}
+    </p>
+
+    <div class="hero__ctas" data-intro data-i="3">
+      <a class="btn btn--accent" href="#contact">
+        {t('hero.cta.primary')}
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M5 12h14M13 6l6 6-6 6"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+      </a>
+      <a class="btn btn--ghost" href="#work">
+        {t('hero.cta.secondary')}
+      </a>
+    </div>
+
+    <dl class="hero__stats" data-intro data-i="4">
+      {stats.map((s) => (
+        <div class="hero__stat">
+          <dt>{s.label}</dt>
+          <dd>{s.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      {[...marquee, ...marquee].map((item) => (
+        <span class="marquee__item">
+          {item}
+          <span class="marquee__sep">✦</span>
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: calc(var(--nav-h) + var(--space-l));
+    isolation: isolate;
+    overflow: clip;
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    width: min(60vw, 720px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    filter: blur(80px);
+    will-change: transform;
+  }
+
+  .blob--a {
+    top: -15%;
+    right: -10%;
+    background: radial-gradient(circle, var(--glow-a), transparent 65%);
+  }
+
+  .blob--b {
+    bottom: -20%;
+    left: -15%;
+    background: radial-gradient(circle, var(--glow-b), transparent 65%);
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%);
+  }
+
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-m);
+  }
+
+  .hero__status {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg-elev) 60%, transparent);
+    font-size: var(--step--1);
+    font-weight: 500;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+  }
+
+  .status-dot[data-available='false'] {
+    background: #f59e0b;
+    animation: none;
+  }
+
+  .hero__role {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .hero__title {
+    font-size: var(--step-5);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  .hero__line {
+    display: block;
+  }
+
+  .hero__line--accent {
+    background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-bottom: 0.08em;
+  }
+
+  .hero__lead {
+    max-width: 56ch;
+    font-size: var(--step-1);
+    color: var(--fg-muted);
+    line-height: 1.5;
+  }
+
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-m) var(--space-l);
+    margin: var(--space-s) 0 0;
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+
+  .hero__stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+    max-width: 18ch;
+  }
+
+  .hero__stat dd {
+    margin: 0;
+    font-family: var(--font-display), var(--font-body);
+    font-size: var(--step-3);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .hero__stat dt {
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+    line-height: 1.35;
+  }
+
+  .marquee {
+    margin-top: var(--space-l);
+    border-block: 1px solid var(--line);
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    padding-block: 18px;
+  }
+
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 28px;
+    padding-right: 28px;
+    font-family: var(--font-display), var(--font-body);
+    font-size: var(--step-2);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--fg-muted);
+    white-space: nowrap;
+  }
+
+  .marquee__sep {
+    color: var(--accent);
+    font-size: 0.6em;
+  }
+</style>

@@ -1,0 +1,135 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { services, type Service } from '../data/services';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Minimal line icons, stroke-based so they follow currentColor.
+const icons: Record<Service['icon'], string> = {
+  web: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01',
+  mobile: 'M8 2h8a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM11 18h2',
+  system: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13v7M13 16.5h7',
+  api: 'M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16',
+  test: 'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9',
+  ai: 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z',
+};
+---
+
+<section id="services" class="section" aria-labelledby="services-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow" data-reveal>
+        {t('services.eyebrow')}
+      </p>
+      <h2 id="services-title" class="section-title" data-reveal data-i="1">
+        {t('services.title')}
+      </h2>
+    </header>
+
+    <ul class="services">
+      {services.map((s, i) => (
+        <li class="service card" data-reveal data-i={String(i % 3)}>
+          <span class="service__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d={icons[s.icon]}
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <h3 class="service__title">{s.title[lang]}</h3>
+          <p class="service__body">{s.body[lang]}</p>
+          <ul class="service__tags">
+            {s.tags.map((tag) => (
+              <li class="tag">{tag}</li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 16px;
+  }
+
+  .service {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: var(--space-m);
+    overflow: hidden;
+    transition:
+      transform 0.4s var(--ease-out),
+      border-color 0.4s;
+  }
+
+  .service::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(
+      500px circle at 0% 0%,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      transparent 45%
+    );
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .service:hover {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+  }
+
+  .service:hover::before {
+    opacity: 1;
+  }
+
+  .service__icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    color: var(--accent-ink);
+  }
+
+  .service__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .service__title {
+    font-size: var(--step-2);
+    margin-top: 8px;
+  }
+
+  .service__body {
+    color: var(--fg-muted);
+    flex: 1;
+  }
+
+  .service__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+</style>

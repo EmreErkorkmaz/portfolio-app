@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Services from './Services.astro';
+import Cases from './Cases.astro';
+import Stack from './Stack.astro';
+import Process from './Process.astro';
+import Engagement from './Engagement.astro';
+import Contact from './Contact.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base lang={lang} title={t('meta.title')} description={t('meta.description')}>
+  <a class="skip-link" href="#main">
+    {t('skip')}
+  </a>
+  <Nav lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <Services lang={lang} />
+    <Cases lang={lang} />
+    <Stack lang={lang} />
+    <Process lang={lang} />
+    <Engagement lang={lang} />
+    <Contact lang={lang} />
+  </main>
+</Base>
+
+<script>
+  import '../scripts/main.ts';
+</script>

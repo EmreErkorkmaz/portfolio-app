@@ -1,0 +1,271 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { cases } from '../data/cases';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="work" class="section cases-section" aria-labelledby="work-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow" data-reveal>
+        {t('cases.eyebrow')}
+      </p>
+      <h2 id="work-title" class="section-title" data-reveal data-i="1">
+        {t('cases.title')}
+      </h2>
+      <p class="cases__note" data-reveal data-i="2">
+        {t('cases.note')}
+      </p>
+    </header>
+
+    <ol class="cases">
+      {cases.map((c, i) => (
+        <li class="case" data-index={i}>
+          <article class="case__card card" aria-labelledby={`case-${c.id}`}>
+            <div class="case__meta">
+              <span class="case__num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="case__sector">{c.sector[lang]}</span>
+            </div>
+
+            <div class="case__main">
+              <h3 id={`case-${c.id}`} class="case__title">
+                {c.title[lang]}
+              </h3>
+
+              <div class="case__text">
+                <div>
+                  <h4 class="case__label">{t('cases.challenge')}</h4>
+                  <p>{c.challenge[lang]}</p>
+                </div>
+                <div>
+                  <h4 class="case__label">{t('cases.approach')}</h4>
+                  <p>{c.approach[lang]}</p>
+                </div>
+              </div>
+
+              <ul class="case__stack">
+                {c.stack.map((s) => (
+                  <li class="tag">{s}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="case__metric">
+              <span class="case__metric-value">{c.metric.value}</span>
+              <span class="case__metric-label">{c.metric.label[lang]}</span>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .cases__note {
+    margin-top: var(--space-s);
+    max-width: 60ch;
+    color: var(--fg-muted);
+    font-size: var(--step--1);
+  }
+
+  .cases {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  /* Stacking cards: each card sticks slightly lower than the previous one,
+     then recedes (scale + dim) as the next card slides over it. */
+  .case {
+    position: sticky;
+    top: calc(var(--nav-h) + 24px + var(--offset, 0px));
+  }
+
+  .case[data-index='1'] {
+    --offset: 12px;
+  }
+  .case[data-index='2'] {
+    --offset: 24px;
+  }
+  .case[data-index='3'] {
+    --offset: 36px;
+  }
+  .case[data-index='4'] {
+    --offset: 48px;
+  }
+
+  .case__card {
+    display: grid;
+    grid-template-columns: 180px 1fr 220px;
+    gap: var(--space-l);
+    padding: var(--space-l);
+    min-height: min(560px, 70svh);
+    transform-origin: center top;
+    background:
+      radial-gradient(
+        600px circle at 100% 0%,
+        color-mix(in srgb, var(--accent-2) 10%, transparent),
+        transparent 60%
+      ),
+      var(--bg-elev);
+  }
+
+  .case__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .case__num {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--accent-ink);
+  }
+
+  .case__sector {
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .case__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .case__title {
+    font-size: var(--step-3);
+  }
+
+  .case__text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-m);
+    color: var(--fg-muted);
+  }
+
+  .case__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin-bottom: 6px;
+  }
+
+  .case__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+  }
+
+  .case__metric {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    gap: 6px;
+  }
+
+  .case__metric-value {
+    font-family: var(--font-display), var(--font-body);
+    font-size: clamp(3.5rem, 2rem + 5vw, 6.5rem);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    background: linear-gradient(160deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .case__metric-label {
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+    max-width: 18ch;
+  }
+
+  /* Recede effect driven by the list's own view timeline (sticky items do not move
+     relative to the viewport, so their own view() would never progress). */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 721px) {
+    @supports (animation-timeline: view()) {
+      .cases {
+        view-timeline-name: --cases;
+      }
+
+      .case__card {
+        animation: card-recede linear both;
+        animation-timeline: --cases;
+        animation-range: exit-crossing var(--from) exit-crossing var(--to);
+      }
+
+      .case[data-index='0'] {
+        --from: 0%;
+        --to: 20%;
+      }
+      .case[data-index='1'] {
+        --from: 20%;
+        --to: 40%;
+      }
+      .case[data-index='2'] {
+        --from: 40%;
+        --to: 60%;
+      }
+      .case[data-index='3'] {
+        --from: 60%;
+        --to: 80%;
+      }
+      .case:last-child .case__card {
+        animation: none;
+      }
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .case__card {
+      grid-template-columns: 1fr;
+      gap: var(--space-m);
+      min-height: 0;
+    }
+
+    .case__meta {
+      flex-direction: row;
+      gap: 16px;
+    }
+
+    .case__metric {
+      order: -1;
+      justify-content: flex-start;
+      text-align: left;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 12px;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .case {
+      position: static;
+    }
+
+    .case__card {
+      padding: var(--space-m);
+    }
+
+    .case__text {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,186 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { process } from '../data/process';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="process" class="section process" aria-labelledby="process-title" data-process>
+  <div class="process__pin">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow" data-reveal>
+          {t('process.eyebrow')}
+        </p>
+        <h2 id="process-title" class="section-title" data-reveal data-i="1">
+          {t('process.title')}
+        </h2>
+      </header>
+    </div>
+
+    <div class="process__viewport">
+      <ol class="process__track container">
+        {process.map((step, i) => (
+          <li class="step" data-reveal data-i={String(i)}>
+            <span class="step__num" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="step__title">{step.title[lang]}</h3>
+            <p class="step__body">{step.body[lang]}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="container">
+      <div class="process__bar" aria-hidden="true">
+        <span data-process-progress></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .process__track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    counter-reset: step;
+  }
+
+  .step {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: var(--space-m);
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: var(--space-m);
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+
+  .step__num {
+    font-family: var(--font-display), var(--font-body);
+    font-size: clamp(3rem, 2rem + 4vw, 6rem);
+    font-weight: 200;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: var(--fg-muted);
+  }
+
+  .step__title {
+    font-size: var(--step-2);
+  }
+
+  .step__body {
+    color: var(--fg-muted);
+  }
+
+  .process__bar {
+    display: none;
+  }
+
+  @media (max-width: 1024px) {
+    .process__track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .process__track {
+      grid-template-columns: 1fr;
+      gap: 0;
+      width: auto;
+      border-left: 1px solid var(--line-strong);
+      margin-inline: var(--gutter);
+      padding-inline: 0;
+    }
+
+    .step {
+      border-top: 0;
+      padding-block: var(--space-s) var(--space-m);
+    }
+
+    .step::before {
+      top: calc(var(--space-s) + 1.6rem);
+      left: -5px;
+    }
+  }
+
+  /* Horizontal, pinned variant; enabled by scene.ts on large screens with motion allowed. */
+  .process.is-horizontal {
+    padding-bottom: 0;
+  }
+
+  .process.is-horizontal .process__pin {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: var(--nav-h);
+  }
+
+  .process.is-horizontal .process__viewport {
+    overflow: hidden;
+  }
+
+  .process.is-horizontal .process__track {
+    display: flex;
+    width: max-content;
+    max-width: none;
+    gap: 24px;
+    padding-right: 30vw;
+    will-change: transform;
+  }
+
+  .process.is-horizontal .step {
+    width: min(560px, 42vw);
+    min-height: 340px;
+    padding: var(--space-l);
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .process.is-horizontal .step::before {
+    display: none;
+  }
+
+  .process.is-horizontal .step__num {
+    color: var(--accent);
+    font-size: clamp(5rem, 3rem + 5vw, 8rem);
+  }
+
+  .process.is-horizontal .process__bar {
+    display: block;
+    height: 2px;
+    margin-top: var(--space-l);
+    background: var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .process__bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: left center;
+    transform: scaleX(0);
+  }
+</style>

@@ -1,0 +1,200 @@
+/* Scroll-driven motion.
+   - Native: CSS scroll/view timelines (compositor-only: transform + opacity).
+   - Fallback: reveal.ts toggles .is-visible via IntersectionObserver when view() is missing.
+   - Reduced motion or no JS without support: content is simply visible. */
+
+/* Stagger index without inline style attributes (keeps CSP free of 'unsafe-inline'). */
+[data-i='1'] {
+  --i: 1;
+}
+[data-i='2'] {
+  --i: 2;
+}
+[data-i='3'] {
+  --i: 3;
+}
+[data-i='4'] {
+  --i: 4;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes hero-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-12vh) scale(0.96);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, -8%, 0) scale(1.12);
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    transform: translateY(0.35em);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes card-recede {
+  to {
+    transform: scale(0.92);
+    filter: brightness(0.7);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, #22c55e 60%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--i, 0) * 4%) entry calc(70% + var(--i, 0) * 4%);
+    }
+
+    [data-draw='x'] {
+      transform-origin: left center;
+      animation: grow-x linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+
+    [data-draw='y'] {
+      transform-origin: center top;
+      animation: grow-y linear both;
+      animation-timeline: view();
+      animation-range: entry 20% exit 60%;
+    }
+
+    [data-hero-exit] {
+      animation: hero-exit linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 90%;
+    }
+
+    .scroll-progress {
+      animation: grow-x linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+
+  @supports not (animation-timeline: view()) {
+    html.js [data-reveal] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition:
+        opacity 0.8s var(--ease-out),
+        transform 0.8s var(--ease-out);
+      transition-delay: calc(var(--i, 0) * 70ms);
+    }
+
+    html.js [data-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    html.js [data-draw='x'],
+    html.js [data-draw='y'] {
+      transition: transform 1.2s var(--ease-out);
+    }
+
+    html.js [data-draw='x']:not(.is-visible) {
+      transform: scaleX(0);
+    }
+
+    html.js [data-draw='y']:not(.is-visible) {
+      transform: scaleY(0);
+    }
+
+    .scroll-progress {
+      display: none;
+    }
+  }
+
+  .blob {
+    animation: drift 18s ease-in-out infinite;
+  }
+
+  .blob:nth-child(2) {
+    animation-duration: 22s;
+    animation-delay: -6s;
+  }
+
+  .marquee__track {
+    animation: marquee 40s linear infinite;
+  }
+
+  .hero__line {
+    animation: rise-in 1s var(--ease-out) both;
+  }
+
+  .hero__line:nth-child(2) {
+    animation-delay: 0.08s;
+  }
+
+  .hero [data-intro] {
+    animation: fade-in 0.9s var(--ease-out) both;
+    animation-delay: calc(0.25s + var(--i, 0) * 0.08s);
+  }
+
+  .status-dot {
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+}

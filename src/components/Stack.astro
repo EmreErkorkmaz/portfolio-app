@@ -1,0 +1,154 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { stack, learning } from '../data/stack';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
+---
+
+<section id="stack" class="section" aria-labelledby="stack-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow" data-reveal>
+        {t('stack.eyebrow')}
+      </p>
+      <h2 id="stack-title" class="section-title" data-reveal data-i="1">
+        {t('stack.title')}
+      </h2>
+      <ul class="legend" data-reveal data-i="2">
+        {(['expert', 'advanced', 'intermediate'] as const).map((lvl) => (
+          <li>
+            <span class="level" data-level={dots[lvl]} aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            {t(`level.${lvl}`)}
+          </li>
+        ))}
+      </ul>
+    </header>
+
+    <div class="groups">
+      {stack.map((g, gi) => (
+        <section
+          class="group"
+          data-reveal
+          data-i={String(gi % 3)}
+          aria-labelledby={`stack-${g.id}`}
+        >
+          <h3 id={`stack-${g.id}`} class="group__title">
+            {g.title[lang]}
+          </h3>
+          <span class="group__rule" data-draw="x" aria-hidden="true" />
+          <ul class="group__items">
+            {g.items.map((item) => (
+              <li class="item">
+                <span>{item.name}</span>
+                <span class="level" data-level={dots[item.level]} title={t(`level.${item.level}`)}>
+                  <i />
+                  <i />
+                  <i />
+                  <span class="visually-hidden">{t(`level.${item.level}`)}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+
+    <p class="learning" data-reveal>
+      <span class="learning__label">{t('stack.learning')}</span>
+      {learning.map((l) => (
+        <span class="tag">{l}</span>
+      ))}
+    </p>
+  </div>
+</section>
+
+<style>
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: var(--space-m);
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+  }
+
+  .legend li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: var(--space-l) var(--space-m);
+  }
+
+  .group__title {
+    font-size: var(--step-2);
+  }
+
+  .group__rule {
+    display: block;
+    height: 1px;
+    margin: 14px 0 6px;
+    background: linear-gradient(90deg, var(--accent), var(--line-strong) 60%);
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 10px;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .level {
+    display: inline-flex;
+    gap: 4px;
+  }
+
+  .level i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--line-strong);
+  }
+
+  .level[data-level='1'] i:nth-child(-n + 1),
+  .level[data-level='2'] i:nth-child(-n + 2),
+  .level[data-level='3'] i:nth-child(-n + 3) {
+    background: var(--accent);
+  }
+
+  .learning {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--space-l);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+
+  .learning__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+    margin-right: 8px;
+  }
+</style>

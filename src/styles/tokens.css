@@ -1,0 +1,82 @@
+/* Design tokens. Light values live on :root; dark overrides follow the OS unless the
+   visitor picked a theme explicitly (html[data-theme]). */
+:root {
+  color-scheme: light;
+
+  --bg: #f4f2ec;
+  --bg-elev: #ffffff;
+  --bg-sunk: #ebe8e0;
+  --fg: #16151b;
+  --fg-muted: #57555f;
+  --line: rgb(22 21 27 / 0.1);
+  --line-strong: rgb(22 21 27 / 0.2);
+  --accent: #d9481b;
+  --accent-ink: #b0360f;
+  --accent-2: #5b47e0;
+  --on-accent: #ffffff;
+  --glow-a: rgb(255 120 70 / 0.45);
+  --glow-b: rgb(120 100 255 / 0.35);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 12px 32px -12px rgb(0 0 0 / 0.12);
+
+  --font-body:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --step--1: clamp(0.83rem, 0.8rem + 0.15vw, 0.9rem);
+  --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);
+  --step-2: clamp(1.45rem, 1.25rem + 1vw, 2rem);
+  --step-3: clamp(1.9rem, 1.5rem + 2vw, 3rem);
+  --step-4: clamp(2.5rem, 1.8rem + 3.6vw, 4.75rem);
+  --step-5: clamp(3rem, 1.9rem + 5.6vw, 7rem);
+
+  --space-s: clamp(0.75rem, 0.7rem + 0.25vw, 1rem);
+  --space-m: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
+  --space-l: clamp(2rem, 1.6rem + 2vw, 3.5rem);
+  --space-xl: clamp(4rem, 3rem + 5vw, 8rem);
+
+  --radius: 20px;
+  --radius-s: 12px;
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --nav-h: 64px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0b0b0f;
+    --bg-elev: #15151c;
+    --bg-sunk: #08080b;
+    --fg: #f2f0ea;
+    --fg-muted: #a4a2ad;
+    --line: rgb(255 255 255 / 0.08);
+    --line-strong: rgb(255 255 255 / 0.18);
+    --accent: #ff6d40;
+    --accent-ink: #ff8a63;
+    --accent-2: #9d8cff;
+    --on-accent: #140905;
+    --glow-a: rgb(255 100 50 / 0.35);
+    --glow-b: rgb(120 100 255 / 0.3);
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 20px 40px -20px rgb(0 0 0 / 0.6);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0b0b0f;
+  --bg-elev: #15151c;
+  --bg-sunk: #08080b;
+  --fg: #f2f0ea;
+  --fg-muted: #a4a2ad;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.18);
+  --accent: #ff6d40;
+  --accent-ink: #ff8a63;
+  --accent-2: #9d8cff;
+  --on-accent: #140905;
+  --glow-a: rgb(255 100 50 / 0.35);
+  --glow-b: rgb(120 100 255 / 0.3);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 20px 40px -20px rgb(0 0 0 / 0.6);
+}
