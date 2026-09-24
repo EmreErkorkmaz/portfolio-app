@@ -2,8 +2,8 @@
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Canonical origin. Update when a custom domain is attached in Cloudflare Pages.
-const site = process.env.SITE_URL ?? 'https://emre-erkorkmaz.pages.dev';
+// Canonical origin (custom domain attached to the Cloudflare Pages project).
+const site = process.env.SITE_URL ?? 'https://emreerkorkmaz.dev';
 
 export default defineConfig({
   site,

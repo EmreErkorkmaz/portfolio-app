@@ -56,5 +56,6 @@ One-time setup:
 3. Add the repository secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and
    `PRIVACY_BLOCKLIST` (the same terms as your local `.privacy-blocklist`, one per line).
 4. Protect `main`: require pull requests and the **Build & audit** check.
-5. When you attach a custom domain, update `site` in `astro.config.mjs` (or set `SITE_URL`) and
-   the sitemap line in `public/robots.txt`.
+5. The site is served from the custom domain `emreerkorkmaz.dev`, attached to the Pages project.
+   If the domain changes, update `site` in `astro.config.mjs` (or set `SITE_URL`) and the sitemap
+   line in `public/robots.txt`.
