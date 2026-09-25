@@ -1,6 +1,7 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
-import { stack, learning } from '../data/stack';
+import { capabilities, practices } from '../data/stack';
+import SplitWords from './SplitWords.astro';
 
 interface Props {
   lang: Lang;
@@ -8,8 +9,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
 ---
 
 <section id="stack" class="section" aria-labelledby="stack-title">
@@ -18,137 +17,129 @@ const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
       <p class="eyebrow" data-reveal>
         {t('stack.eyebrow')}
       </p>
-      <h2 id="stack-title" class="section-title" data-reveal data-i="1">
-        {t('stack.title')}
+      <h2 id="stack-title" class="section-title" data-split>
+        <SplitWords text={t('stack.title')} />
       </h2>
-      <ul class="legend" data-reveal data-i="2">
-        {(['expert', 'advanced', 'intermediate'] as const).map((lvl) => (
-          <li>
-            <span class="level" data-level={dots[lvl]} aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-            {t(`level.${lvl}`)}
-          </li>
-        ))}
-      </ul>
+      <p class="section-lead" data-reveal data-i="1">
+        {t('stack.lead')}
+      </p>
     </header>
 
-    <div class="groups">
-      {stack.map((g, gi) => (
-        <section
-          class="group"
-          data-reveal
-          data-i={String(gi % 3)}
-          aria-labelledby={`stack-${g.id}`}
-        >
-          <h3 id={`stack-${g.id}`} class="group__title">
-            {g.title[lang]}
-          </h3>
-          <span class="group__rule" data-draw="x" aria-hidden="true" />
-          <ul class="group__items">
-            {g.items.map((item) => (
-              <li class="item">
-                <span>{item.name}</span>
-                <span class="level" data-level={dots[item.level]} title={t(`level.${item.level}`)}>
-                  <i />
-                  <i />
-                  <i />
-                  <span class="visually-hidden">{t(`level.${item.level}`)}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
+    <ul class="caps">
+      {capabilities.map((c, i) => (
+        <li class="cap" data-reveal data-i={String(i % 3)}>
+          <span class="cap__num" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 class="cap__title">{c.title[lang]}</h3>
+          <p class="cap__body">{c.body[lang]}</p>
+          <p class="cap__eco">
+            <span>{t('stack.ecosystem')}</span>
+            {c.ecosystem.join(' · ')}
+          </p>
+        </li>
       ))}
-    </div>
+    </ul>
 
-    <p class="learning" data-reveal>
-      <span class="learning__label">{t('stack.learning')}</span>
-      {learning.map((l) => (
-        <span class="tag">{l}</span>
-      ))}
-    </p>
+    <div class="practices" data-reveal>
+      <h3 class="practices__label">{t('stack.practices')}</h3>
+      <ul>
+        {practices[lang].map((p) => (
+          <li>{p}</li>
+        ))}
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
-  .legend {
+  /* Flex rather than grid so a partial last row stretches instead of leaving empty cells. */
+  .caps {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 20px;
-    margin-top: var(--space-m);
+    gap: 1px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .cap {
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: var(--space-m);
+    background: var(--bg);
+    transition: background-color 0.3s;
+  }
+
+  .cap:hover {
+    background: var(--bg-elev);
+  }
+
+  .cap__num {
+    font-family: var(--font-mono);
     font-size: var(--step--1);
-    color: var(--fg-muted);
+    color: var(--accent-ink);
   }
 
-  .legend li {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .groups {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-    gap: var(--space-l) var(--space-m);
-  }
-
-  .group__title {
+  .cap__title {
     font-size: var(--step-2);
   }
 
-  .group__rule {
-    display: block;
-    height: 1px;
-    margin: 14px 0 6px;
-    background: linear-gradient(90deg, var(--accent), var(--line-strong) 60%);
+  .cap__body {
+    flex: 1;
+    color: var(--fg-muted);
   }
 
-  .item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding-block: 10px;
-    border-bottom: 1px dashed var(--line);
+  .cap__eco {
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
   }
 
-  .level {
-    display: inline-flex;
-    gap: 4px;
+  .cap__eco span {
+    margin-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-ink);
   }
 
-  .level i {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--line-strong);
-  }
-
-  .level[data-level='1'] i:nth-child(-n + 1),
-  .level[data-level='2'] i:nth-child(-n + 2),
-  .level[data-level='3'] i:nth-child(-n + 3) {
-    background: var(--accent);
-  }
-
-  .learning {
+  .practices {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
+    align-items: baseline;
+    gap: 8px 20px;
     margin-top: var(--space-l);
     padding-top: var(--space-m);
     border-top: 1px solid var(--line);
   }
 
-  .learning__label {
+  .practices__label {
     font-family: var(--font-mono);
     font-size: var(--step--1);
-    text-transform: uppercase;
+    font-weight: 500;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--fg-muted);
-    margin-right: 8px;
+  }
+
+  .practices ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+
+  .practices li {
+    font-weight: 600;
+  }
+
+  .practices li + li::before {
+    content: '·';
+    margin-right: 18px;
+    color: var(--accent);
   }
 </style>

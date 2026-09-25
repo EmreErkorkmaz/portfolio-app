@@ -1,103 +1,61 @@
 import type { Localized } from '../i18n/ui';
 
-// Levels mirror Notion "master_cv.json" skills. "learning" items are only shown in the
-// "currently learning" line, never as a strength.
-export type Level = 'expert' | 'advanced' | 'intermediate';
-
-export interface StackGroup {
+// Capability pillars for technical readers (CTOs, tech leads, recruiters). Kept short on
+// purpose: one sentence per pillar that says what it delivers, frameworks only as a small
+// "ecosystem" line. No per-item tags, skill levels or niche libraries.
+export interface Capability {
   id: string;
   title: Localized;
-  items: { name: string; level: Level }[];
+  body: Localized;
+  ecosystem: string[];
 }
 
-export const stack: StackGroup[] = [
+export const capabilities: Capability[] = [
   {
     id: 'frontend',
-    title: { tr: 'Frontend', en: 'Frontend' },
-    items: [
-      { name: 'React', level: 'expert' },
-      { name: 'TypeScript', level: 'expert' },
-      { name: 'JavaScript', level: 'expert' },
-      { name: 'Next.js', level: 'advanced' },
-      { name: 'Redux / Redux Saga', level: 'advanced' },
-      { name: 'Angular', level: 'intermediate' },
-      { name: 'GraphQL', level: 'intermediate' },
-    ],
-  },
-  {
-    id: 'mobile',
-    title: { tr: 'Mobil', en: 'Mobile' },
-    items: [
-      { name: 'PWA', level: 'advanced' },
-      { name: 'React Native', level: 'intermediate' },
-    ],
-  },
-  {
-    id: 'ui',
-    title: { tr: 'UI & Design System', en: 'UI & Design Systems' },
-    items: [
-      { name: 'Design Systems', level: 'advanced' },
-      { name: 'Tailwind CSS', level: 'advanced' },
-      { name: 'shadcn/ui', level: 'advanced' },
-      { name: 'Base UI', level: 'advanced' },
-      { name: 'Storybook', level: 'advanced' },
-      { name: 'Material UI', level: 'advanced' },
-      { name: 'npm publishing', level: 'advanced' },
-      { name: 'Ant Design', level: 'intermediate' },
-      { name: 'Styled-Components / Sass', level: 'intermediate' },
-    ],
+    title: { tr: 'Frontend ve performans', en: 'Frontend & performance' },
+    body: {
+      tr: 'Web ve mobilde hızlı açılan, arama motorlarında görünen ve büyüdükçe bakımı kolay kalan arayüzler.',
+      en: 'Web and mobile interfaces that load fast, rank in search and stay maintainable as they grow.',
+    },
+    ecosystem: ['React', 'Vue', 'Angular', 'Next.js', 'Astro', 'React Native', 'TypeScript'],
   },
   {
     id: 'backend',
-    title: { tr: 'Backend & Veri', en: 'Backend & Data' },
-    items: [
-      { name: 'Node.js', level: 'intermediate' },
-      { name: 'NestJS', level: 'intermediate' },
-      { name: 'Express', level: 'intermediate' },
-      { name: 'REST APIs', level: 'intermediate' },
-      { name: 'WebSockets', level: 'intermediate' },
-      { name: 'OAuth / JWT', level: 'intermediate' },
-      { name: 'PostgreSQL', level: 'intermediate' },
-      { name: 'MongoDB', level: 'intermediate' },
-    ],
+    title: { tr: 'Backend ve API', en: 'Backend & APIs' },
+    body: {
+      tr: 'Güvenli ve ölçeklenebilir servisler, doğru modellenmiş veri ve arayüzü asla bekletmeyen API’ler.',
+      en: 'Secure, scalable services, well-modelled data and APIs that never keep the interface waiting.',
+    },
+    ecosystem: ['Node.js', 'NestJS', 'Java', 'Spring Boot', 'PostgreSQL', 'MongoDB', 'Redis'],
   },
   {
-    id: 'testing',
-    title: { tr: 'Test', en: 'Testing' },
-    items: [
-      { name: 'Playwright', level: 'advanced' },
-      { name: 'Cypress', level: 'intermediate' },
-      { name: 'React Testing Library', level: 'intermediate' },
-      { name: 'Mock Service Worker', level: 'intermediate' },
-      { name: 'Jest', level: 'intermediate' },
-    ],
-  },
-  {
-    id: 'tools',
-    title: { tr: 'DevOps & Araçlar', en: 'DevOps & Tools' },
-    items: [
-      { name: 'Git', level: 'advanced' },
-      { name: 'Claude / Copilot', level: 'advanced' },
-      { name: 'GitHub Actions', level: 'intermediate' },
-      { name: 'Docker', level: 'intermediate' },
-    ],
+    id: 'cloud',
+    title: { tr: 'Bulut ve kalite', en: 'Cloud & quality' },
+    body: {
+      tr: 'Her değişikliği otomatik test edip güvenle yayına alan, izlenebilir ve güvenli bir teslimat hattı.',
+      en: 'A delivery pipeline that tests and ships every change automatically, observable and secure.',
+    },
+    ecosystem: ['Docker', 'GitHub Actions', 'AWS', 'Cloudflare', 'Playwright', 'Jest'],
   },
 ];
 
-export const learning = ['Java', 'Spring Boot', 'AWS'];
-
-// Short list for the hero marquee.
-export const marquee = [
-  'React',
-  'TypeScript',
-  'Next.js',
-  'React Native',
-  'Node.js',
-  'NestJS',
-  'Tailwind CSS',
-  'Storybook',
-  'Playwright',
-  'GraphQL',
-  'PWA',
-  'Design Systems',
-];
+// How the work gets done; shown as a single line under the capability grid.
+export const practices: Localized<string[]> = {
+  tr: [
+    'Agile / Scrum',
+    'Code review',
+    'Test odaklı teslimat',
+    'Dokümantasyon',
+    'AI destekli geliştirme',
+    'Uzaktan ekip çalışması',
+  ],
+  en: [
+    'Agile / Scrum',
+    'Code review',
+    'Test-driven delivery',
+    'Documentation',
+    'AI-assisted development',
+    'Remote collaboration',
+  ],
+};

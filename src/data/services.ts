@@ -1,72 +1,192 @@
 import type { Localized } from '../i18n/ui';
 
+export type ServiceIcon = 'web' | 'store' | 'mobile' | 'improve' | 'rocket' | 'team';
+
+// First layer: what the client gets, written from the client's side (benefit first,
+// present tense). Technology is a footnote.
 export interface Service {
   id: string;
-  icon: 'web' | 'mobile' | 'system' | 'api' | 'test' | 'ai';
+  icon: ServiceIcon;
   title: Localized;
   body: Localized;
-  tags: string[];
+  bestFor: Localized;
+  includes: Localized<string[]>;
+  tech: Localized<string[]>;
 }
 
 export const services: Service[] = [
   {
-    id: 'web',
+    id: 'website',
     icon: 'web',
-    title: { tr: 'Web uygulamaları', en: 'Web applications' },
+    title: { tr: 'Kurumsal web sitesi', en: 'Business website' },
     body: {
-      tr: 'SSR veya statik, tek sayfa ya da çok dilli: hızlı açılan, SEO dostu ve büyüdükçe dağılmayan React / Next.js uygulamaları.',
-      en: 'SSR or static, single page or multilingual: React / Next.js apps that load fast, rank well and stay coherent as they grow.',
+      tr: 'İşletmenizi doğru anlatan, saniyeler içinde açılan ve Google’da bulunan bir web sitesi. Her ziyaretçi, potansiyel bir müşteri.',
+      en: 'A website that tells your story well, opens in a blink and gets found on Google. Every visitor becomes a potential customer.',
     },
-    tags: ['React', 'Next.js', 'TypeScript', 'Redux'],
+    bestFor: {
+      tr: 'Restoranlar, klinikler, danışmanlık ve hizmet işletmeleri',
+      en: 'Restaurants, clinics, consultancies and service businesses',
+    },
+    includes: {
+      tr: [
+        'Telefon, tablet ve bilgisayarda kusursuz görünüm',
+        'Google’da görünürlük için teknik altyapı',
+        'Çok dilli yapı seçeneği',
+      ],
+      en: [
+        'Flawless on phones, tablets and desktops',
+        'Built to be found on Google',
+        'Multilingual option',
+      ],
+    },
+    tech: {
+      tr: ['SSR / SSG', 'Teknik SEO', 'Core Web Vitals'],
+      en: ['SSR / SSG', 'Technical SEO', 'Core Web Vitals'],
+    },
+  },
+  {
+    id: 'store',
+    icon: 'store',
+    title: { tr: 'Online mağaza', en: 'Online store' },
+    body: {
+      tr: 'Ürünlerinizi 7/24 satan bir mağaza: vitrin, sepet ve güvenli ödeme. Hızlı açılan sayfalar, daha yüksek satış demektir.',
+      en: 'A store that sells around the clock: catalogue, cart and secure checkout. Faster pages mean higher sales.',
+    },
+    bestFor: {
+      tr: 'İnternetten satışa başlayan ya da mevcut mağazasını büyütmek isteyen markalar',
+      en: 'Brands starting to sell online or growing an existing store',
+    },
+    includes: {
+      tr: [
+        'Ürün vitrini, arama ve filtreleme',
+        'Sepet ve ödeme altyapısı entegrasyonu',
+        'Arama motorlarında öne çıkan ürün sayfaları',
+      ],
+      en: [
+        'Product catalogue, search and filters',
+        'Cart and payment provider integration',
+        'Product pages that stand out in search',
+      ],
+    },
+    tech: {
+      tr: ['SSR', 'Ödeme entegrasyonu', 'Teknik SEO'],
+      en: ['SSR', 'Payment integration', 'Technical SEO'],
+    },
   },
   {
     id: 'mobile',
     icon: 'mobile',
-    title: { tr: 'Mobil & PWA', en: 'Mobile & PWA' },
+    title: { tr: 'Mobil uygulama', en: 'Mobile app' },
     body: {
-      tr: 'Kurulabilir PWA’lar, native uygulamalara gömülü web katmanları ve React Native ile tek kod tabanından iOS ve Android.',
-      en: 'Installable PWAs, web layers embedded in native apps, and React Native for iOS and Android from a single codebase.',
+      tr: 'Müşterilerinize cebinden ulaşın. iPhone ve Android için tek geliştirmeyle, iki platformda birden.',
+      en: 'Reach your customers in their pocket. One build, live on both iPhone and Android.',
     },
-    tags: ['PWA', 'Webview', 'React Native'],
+    bestFor: {
+      tr: 'Sadakat, sipariş veya randevu süreçlerini telefona taşımak isteyen işletmeler',
+      en: 'Businesses moving loyalty, ordering or bookings onto the phone',
+    },
+    includes: {
+      tr: [
+        'iPhone ve Android için tek kod tabanı',
+        'Bildirimler ve telefon özellikleri',
+        'Mağazaya gerek kalmadan kurulabilen web uygulaması seçeneği',
+      ],
+      en: [
+        'One codebase for iPhone and Android',
+        'Notifications and native phone features',
+        'Installable web app option, no app store needed',
+      ],
+    },
+    tech: {
+      tr: ['Cross-platform', 'PWA', 'Push bildirimleri'],
+      en: ['Cross-platform', 'PWA', 'Push notifications'],
+    },
   },
   {
-    id: 'system',
-    icon: 'system',
-    title: { tr: 'Design system', en: 'Design systems' },
+    id: 'mvp',
+    icon: 'rocket',
+    title: { tr: 'Fikirden ilk sürüme', en: 'From idea to first version' },
     body: {
-      tr: 'npm paketi olarak yayınlanan component kütüphaneleri, Tailwind plugin’leri ve Storybook dokümantasyonu. Tasarım ile kod arasında tek dil.',
-      en: 'Component libraries published as npm packages, Tailwind plugins and Storybook docs. One shared language between design and code.',
+      tr: 'Fikrinizi hızla gerçek kullanıcılarla buluşturun. Önce en önemli özellikler, ardından ölçerek büyüyen bir ürün.',
+      en: 'Put your idea in front of real users, fast. The essential features first, then a product that grows with evidence.',
     },
-    tags: ['shadcn/ui', 'Base UI', 'Tailwind', 'Storybook'],
+    bestFor: {
+      tr: 'Teknik ekibi olmayan girişimciler ve yeni iş fikirleri',
+      en: 'Founders without a tech team and new business ideas',
+    },
+    includes: {
+      tr: [
+        'Kapsamı netleştiren ücretsiz ön görüşme',
+        'Haftalık, denenebilir sürümler',
+        'Yatırımcıya ve kullanıcıya gösterilebilir ürün',
+      ],
+      en: [
+        'Free intro call to shape the scope',
+        'Weekly versions you can try',
+        'A product ready for users and investors',
+      ],
+    },
+    tech: {
+      tr: ['Full-stack geliştirme', 'API tasarımı', 'CI/CD'],
+      en: ['Full-stack development', 'API design', 'CI/CD'],
+    },
   },
   {
-    id: 'api',
-    icon: 'api',
-    title: { tr: 'Backend & API', en: 'Backend & APIs' },
+    id: 'improve',
+    icon: 'improve',
+    title: { tr: 'Mevcut yazılımı iyileştirme', en: 'Improve existing software' },
     body: {
-      tr: 'Frontend’i bekletmeyen REST ve GraphQL uçları; kimlik doğrulama, gerçek zamanlı veri ve üçüncü parti entegrasyonları.',
-      en: 'REST and GraphQL endpoints that unblock the frontend; authentication, real-time data and third-party integrations.',
+      tr: 'Yavaşlayan, hata veren ya da yeni ihtiyaçlara yetişemeyen sisteminize ikinci bir hayat. Çalışan yapı korunur, eksikler giderilir.',
+      en: 'A second life for software that has slowed down, breaks or can’t keep up. What works stays; what doesn’t gets fixed.',
     },
-    tags: ['Node.js', 'NestJS', 'Express', 'GraphQL'],
+    bestFor: {
+      tr: 'Müşteri şikâyeti alan, yavaş ya da bakımsız kalmış siteler ve uygulamalar',
+      en: 'Slow, unmaintained or complaint-prone sites and apps',
+    },
+    includes: {
+      tr: [
+        'Hız ve performans iyileştirmesi',
+        'Hata giderme ve yeni özellikler',
+        'Düzenli bakım ve destek',
+      ],
+      en: [
+        'Speed and performance improvements',
+        'Bug fixes and new features',
+        'Ongoing maintenance and support',
+      ],
+    },
+    tech: {
+      tr: ['Performans analizi', 'Test otomasyonu', 'Refactoring'],
+      en: ['Performance audit', 'Test automation', 'Refactoring'],
+    },
   },
   {
-    id: 'test',
-    icon: 'test',
-    title: { tr: 'Test & kalite', en: 'Testing & quality' },
+    id: 'team',
+    icon: 'team',
+    title: { tr: 'Ekibinize geliştirici desteği', en: 'An extra developer for your team' },
     body: {
-      tr: 'Uçtan uca Playwright pipeline’ları, component ve entegrasyon testleri. Her release’e güvenle çıkmak için.',
-      en: 'End-to-end Playwright pipelines, component and integration tests. So every release ships with confidence.',
+      tr: 'İşe alım süreci beklemeden ekibinize deneyimli bir geliştirici. Yoğun dönemde hız, kritik projede güvence.',
+      en: 'An experienced developer on your team without a hiring process. Speed in busy periods, assurance on critical projects.',
     },
-    tags: ['Playwright', 'Cypress', 'RTL', 'MSW'],
-  },
-  {
-    id: 'ai',
-    icon: 'ai',
-    title: { tr: 'AI destekli geliştirme', en: 'AI-assisted delivery' },
-    body: {
-      tr: 'Claude ve Copilot’u design system üzerine kurulu, standartlara uyan kod üretecek şekilde ekibinizin akışına entegre ediyorum.',
-      en: 'I wire Claude and Copilot into your team’s workflow so they generate standards-compliant code on top of your design system.',
+    bestFor: {
+      tr: 'Teslim tarihine yetişmesi gereken şirketler ve kurum içi yazılım ekipleri',
+      en: 'Companies facing a deadline and in-house software teams',
     },
-    tags: ['Claude', 'GitHub Copilot'],
+    includes: {
+      tr: [
+        'Saatlik, günlük ya da uzun dönem çalışma',
+        'Ekibinizin araç ve süreçlerine hızlı uyum',
+        'Kalıcı kalite: testler ve dokümantasyon',
+      ],
+      en: [
+        'Hourly, daily or long-term engagement',
+        'Quick fit with your tools and processes',
+        'Lasting quality: tests and documentation',
+      ],
+    },
+    tech: {
+      tr: ['Frontend', 'Backend', 'Code review'],
+      en: ['Frontend', 'Backend', 'Code review'],
+    },
   },
 ];

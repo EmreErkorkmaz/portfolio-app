@@ -1,7 +1,6 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
 import { site } from '../data/site';
-import { marquee } from '../data/stack';
 
 interface Props {
   lang: Lang;
@@ -13,8 +12,39 @@ const t = useTranslations(lang);
 const stats = [
   { value: `${site.yearsOfExperience}+`, label: t('hero.stat.years') },
   { value: 'M+', label: t('hero.stat.scale') },
-  { value: '10×', label: t('hero.stat.speed') },
+  { value: '10×', label: t('hero.stat.efficiency') },
 ];
+
+// Rotating end of the headline: what the visitor gets, in their words.
+const words: Record<Lang, string[]> = {
+  tr: ['web sitesine', 'online mağazaya', 'mobil uygulamaya', 'yazılıma'],
+  en: ['website', 'online store', 'mobile app', 'product'],
+};
+
+// Plain-language promises for the marquee (technology names live in the Technical section).
+const marquee: Record<Lang, string[]> = {
+  tr: [
+    'Web siteleri',
+    'Online mağazalar',
+    'Mobil uygulamalar',
+    'Hızlı açılış',
+    'Google’da görünürlük',
+    'Her ekrana uyumlu',
+    'Güvenli altyapı',
+    'Yayından sonra destek',
+  ],
+  en: [
+    'Websites',
+    'Online stores',
+    'Mobile apps',
+    'Fast loading',
+    'Found on Google',
+    'Works on every screen',
+    'Secure by default',
+    'Support after launch',
+  ],
+};
+const post = t('hero.title.post');
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -35,8 +65,16 @@ const stats = [
     </p>
 
     <h1 id="hero-title" class="hero__title">
-      <span class="hero__line">{t('hero.title.a')}</span>
-      <span class="hero__line hero__line--accent">{t('hero.title.b')}</span>
+      <span class="visually-hidden">{t('hero.title.full')}</span>
+      <span class="hero__line" aria-hidden="true">
+        {t('hero.title.pre')}{' '}
+        <span class="rotator">
+          {words[lang].map((w) => (
+            <span class="rotator__word">{post ? w : `${w}.`}</span>
+          ))}
+        </span>
+        {post}
+      </span>
     </h1>
 
     <p class="hero__lead" data-intro data-i="2">
@@ -74,7 +112,7 @@ const stats = [
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      {[...marquee, ...marquee].map((item) => (
+      {[...marquee[lang], ...marquee[lang]].map((item) => (
         <span class="marquee__item">
           {item}
           <span class="marquee__sep">✦</span>
@@ -173,24 +211,38 @@ const stats = [
   }
 
   .hero__title {
-    font-size: var(--step-5);
+    max-width: 16ch;
+    font-size: clamp(2.4rem, 1.5rem + 4.4vw, 5.75rem);
     font-weight: 700;
     letter-spacing: -0.045em;
-    line-height: 0.98;
+    line-height: 1.02;
   }
 
   .hero__line {
     display: block;
   }
 
-  .hero__line--accent {
+  /* Rotating words share one grid cell, so the box is always as wide as the longest
+     word and the headline never reflows (no CLS). Motion lives in motion.css. */
+  /* Own line: the box is as wide as the longest word, so text placed after it on the
+     same line would leave a gap behind shorter words. */
+  .rotator {
+    display: grid;
+    justify-items: start;
+    padding-bottom: 0.08em;
+  }
+
+  .rotator__word {
+    grid-area: 1 / 1;
     background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    padding-bottom: 0.08em;
   }
 
+  .rotator__word:not(:first-child) {
+    opacity: 0;
+  }
   .hero__lead {
     max-width: 56ch;
     font-size: var(--step-1);

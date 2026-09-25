@@ -1,0 +1,16 @@
+---
+// Splits text into word spans at build time so headings can reveal word by word.
+// The parent element needs `data-split`; motion.css handles the animation and fallbacks.
+interface Props {
+  text: string;
+}
+
+const words = Astro.props.text.trim().split(/\s+/);
+---
+
+{words.map((word, i) => (
+  <>
+    <span class="w">{word}</span>
+    {i < words.length - 1 ? ' ' : ''}
+  </>
+))}
