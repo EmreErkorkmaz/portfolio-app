@@ -21,6 +21,9 @@ const t = useTranslations(lang);
       <h2 id="services-title" class="section-title" data-split>
         <SplitWords text={t('services.title')} />
       </h2>
+      <p class="section-lead" data-reveal data-i="1">
+        {t('services.lead')}
+      </p>
     </header>
 
     <ul class="services">
@@ -40,6 +43,10 @@ const t = useTranslations(lang);
           </span>
           <h3 class="service__title">{s.title[lang]}</h3>
           <p class="service__body">{s.body[lang]}</p>
+          <p class="service__for">
+            <span>{t('services.bestFor')}</span>
+            {s.bestFor[lang]}
+          </p>
           <div class="service__includes">
             <h4 class="service__label">{t('services.includes')}</h4>
             <ul>
@@ -123,6 +130,26 @@ const t = useTranslations(lang);
   .service__body {
     color: var(--fg-muted);
     flex: 1;
+  }
+
+  .service__for {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 12px 14px;
+    border-radius: var(--radius-s);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    font-weight: 500;
+    line-height: 1.45;
+  }
+
+  .service__for span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
   }
 
   .service__includes {

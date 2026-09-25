@@ -129,6 +129,14 @@ button {
   margin-bottom: var(--space-l);
 }
 
+.section-lead {
+  max-width: 60ch;
+  margin-top: var(--space-m);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--fg-muted);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

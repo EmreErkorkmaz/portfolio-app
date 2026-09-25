@@ -14,8 +14,8 @@ export const faq: FaqItem[] = [
       en: 'I’m not technical. Is that a problem?',
     },
     a: {
-      tr: 'Hiç sorun değil. Ne istediğinizi kendi kelimelerinizle anlatmanız yeterli; teknik kararları ben veririm ve her adımı sade bir dille açıklarım. Her hafta çalışan halini görür, yorumlarınızı iletirsiniz.',
-      en: 'Not at all. Describe what you need in your own words; I handle the technical decisions and explain every step in plain language. You see a working version every week and share your feedback.',
+      tr: 'Hiç sorun olmaz. İhtiyacınızı kendi kelimelerinizle anlatmanız yeterli; teknik kararlar ve uygulama tarafı tamamen üstlenilir. Her adım sade bir dille açıklanır, her hafta çalışan sürümü görüp yorumlarınızı iletirsiniz.',
+      en: 'Not at all. Describe what you need in your own words; the technical decisions and the build are fully taken care of. Every step is explained in plain language, and you review a working version each week.',
     },
   },
   {
@@ -24,8 +24,8 @@ export const faq: FaqItem[] = [
       en: 'How is pricing decided?',
     },
     a: {
-      tr: 'Fiyat; sayfa ve özellik sayısına, tasarım ihtiyacına ve bağlanacak sistemlere (ödeme, randevu, stok gibi) göre değişir. Önce ücretsiz bir ön görüşme yaparız, ardından kapsamı ve süreyi netleştiren yazılı bir teklif gönderirim. Sürpriz ek ücret olmaz.',
-      en: 'It depends on the number of pages and features, the design work and the systems to connect (payments, bookings, stock and so on). We start with a free intro call, then I send a written quote that fixes scope and timeline. No surprise extras.',
+      tr: 'Fiyat; sayfa ve özellik sayısına, tasarım ihtiyacına ve bağlanacak sistemlere (ödeme, randevu, stok gibi) göre belirlenir. Ücretsiz ön görüşmenin ardından kapsamı ve süreyi netleştiren yazılı bir teklif iletilir. Sürpriz ek ücret yoktur.',
+      en: 'It depends on the number of pages and features, the design work and the systems to connect (payments, bookings, stock and so on). After a free intro call you receive a written quote that fixes scope and timeline. No surprise extras.',
     },
   },
   {
@@ -34,8 +34,8 @@ export const faq: FaqItem[] = [
       en: 'How long does a project take?',
     },
     a: {
-      tr: 'Kapsama göre değişir. Tanıtım sitesi gibi küçük işler genelde birkaç hafta, online mağaza veya uygulama gibi daha büyük projeler birkaç ay sürer. Net süreyi teklifte yazılı olarak belirtirim.',
-      en: 'It depends on scope. Smaller jobs such as a business site usually take a few weeks; larger projects such as an online store or an app take a few months. The exact timeline is written into the quote.',
+      tr: 'Kapsama göre değişir. Kurumsal site gibi işler genellikle birkaç hafta, online mağaza veya uygulama gibi projeler birkaç ay sürer. Net süre teklifte yazılı olarak yer alır.',
+      en: 'It depends on scope. A business site usually takes a few weeks; an online store or an app takes a few months. The exact timeline is written into the quote.',
     },
   },
   {
@@ -54,8 +54,8 @@ export const faq: FaqItem[] = [
       en: 'Will it show up on Google?',
     },
     a: {
-      tr: 'Evet. Siteler hızlı açılacak ve arama motorlarının kolayca okuyacağı şekilde hazırlanır. Sıralama zamanla içerik ve rekabete göre oluşur; bunu iyileştirmek için neler yapabileceğinizi de anlatırım.',
-      en: 'Yes. Sites are built to load fast and be easy for search engines to read. Rankings grow over time with content and competition, and I’ll show you what you can do to improve them.',
+      tr: 'Evet. Siteler hızlı açılacak ve arama motorlarının kolayca okuyacağı şekilde hazırlanır. Sıralama zamanla içerik ve rekabete göre oluşur; iyileştirmek için atılabilecek adımlar da teslimle birlikte paylaşılır.',
+      en: 'Yes. Sites are built to load fast and be easy for search engines to read. Rankings grow over time with content and competition, and the next steps to improve them are shared at handover.',
     },
   },
   {
@@ -64,8 +64,8 @@ export const faq: FaqItem[] = [
       en: 'Can you rework my existing site?',
     },
     a: {
-      tr: 'Evet. Önce mevcut durumu inceler, neyin korunup neyin yenilenmesi gerektiğini anlatırım. Bazen sıfırdan yapmak yerine hızlandırmak ve düzeltmek en doğrusudur.',
-      en: 'Yes. I first review what you have and explain what to keep and what to rebuild. Often speeding it up and fixing it beats starting over.',
+      tr: 'Evet. Önce mevcut yapı incelenir ve neyin korunup neyin yenileneceği açıkça paylaşılır. Çoğu zaman sıfırdan başlamak yerine hızlandırmak ve düzeltmek en verimli yoldur.',
+      en: 'Yes. Your current setup is reviewed first, and what to keep versus rebuild is laid out clearly. Often, speeding it up and fixing it beats starting over.',
     },
   },
   {
@@ -74,8 +74,8 @@ export const faq: FaqItem[] = [
       en: 'Do you offer support after launch?',
     },
     a: {
-      tr: 'Evet. Yayından sonra hata düzeltme, güncelleme ve yeni özellikler için yanınızdayım; isterseniz aylık bakım olarak da çalışabiliriz.',
-      en: 'Yes. After launch I’m available for fixes, updates and new features, and we can also agree on a monthly maintenance plan.',
+      tr: 'Evet. Yayın sonrasında hata düzeltme, güncelleme ve yeni özellikler için destek sürer; dilerseniz aylık bakım anlaşması da yapılabilir.',
+      en: 'Yes. Support for fixes, updates and new features continues after launch, and a monthly maintenance plan is available.',
     },
   },
 ];
