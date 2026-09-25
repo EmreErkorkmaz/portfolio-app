@@ -85,19 +85,3 @@ export const stack: StackGroup[] = [
 ];
 
 export const learning = ['Java', 'Spring Boot', 'AWS'];
-
-// Short list for the hero marquee.
-export const marquee = [
-  'React',
-  'TypeScript',
-  'Next.js',
-  'React Native',
-  'Node.js',
-  'NestJS',
-  'Tailwind CSS',
-  'Storybook',
-  'Playwright',
-  'GraphQL',
-  'PWA',
-  'Design Systems',
-];

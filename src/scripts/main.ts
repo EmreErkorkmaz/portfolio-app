@@ -17,7 +17,9 @@ if (!nativeScrollTimeline && !reduceMotion && 'IntersectionObserver' in window) 
     },
     { rootMargin: '0px 0px -10% 0px' },
   );
-  document.querySelectorAll('[data-reveal], [data-draw]').forEach((el) => io.observe(el));
+  document
+    .querySelectorAll('[data-reveal], [data-draw], [data-split]')
+    .forEach((el) => io.observe(el));
 }
 
 // 2. Copy-email button (only shown when the Clipboard API exists).

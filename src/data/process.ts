@@ -23,8 +23,8 @@ export const process: Step[] = [
   {
     title: { tr: 'Geliştirme', en: 'Build' },
     body: {
-      tr: 'Kısa iterasyonlarla ilerliyor, her hafta çalışan bir demo paylaşıyorum. Kod sizin repo’nuzda, test ve CI ile birlikte büyüyor.',
-      en: 'Short iterations with a working demo every week. The code lives in your repo and grows with tests and CI.',
+      tr: 'Kısa adımlarla ilerliyor, her hafta çalışan halini size gösteriyorum. Kod ilk günden sizin ve otomatik testlerle güvence altında büyüyor.',
+      en: 'Short steps with a working version to try every week. The code is yours from day one and grows safely under automated tests.',
     },
   },
   {
@@ -47,8 +47,8 @@ export const engagement: { title: Localized; body: Localized }[] = [
   {
     title: { tr: 'Sözleşmeli', en: 'Contract' },
     body: {
-      tr: 'Saatlik veya günlük; mevcut ekibinize kıdemli bir frontend / full-stack mühendis olarak katılırım.',
-      en: 'Hourly or daily; I join your existing team as a senior frontend / full-stack engineer.',
+      tr: 'Saatlik veya günlük; mevcut yazılım ekibinize deneyimli bir geliştirici olarak katılırım.',
+      en: 'Hourly or daily; I join your existing software team as an experienced developer.',
     },
   },
   {

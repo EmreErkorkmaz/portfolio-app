@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
+import SplitWords from './SplitWords.astro';
 import { site } from '../data/site';
 
 interface Props {
@@ -18,8 +19,8 @@ const year = new Date().getFullYear();
     <p class="eyebrow" data-reveal>
       {t('contact.eyebrow')}
     </p>
-    <h2 id="contact-title" class="contact__title" data-reveal data-i="1">
-      {t('contact.title')}
+    <h2 id="contact-title" class="contact__title" data-split>
+      <SplitWords text={t('contact.title')} />
     </h2>
     <p class="contact__lead" data-reveal data-i="2">
       {t('contact.lead')}

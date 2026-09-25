@@ -1,6 +1,8 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
-import { services, type Service } from '../data/services';
+import { services } from '../data/services';
+import { icons } from '../data/icons';
+import SplitWords from './SplitWords.astro';
 
 interface Props {
   lang: Lang;
@@ -8,16 +10,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-
-// Minimal line icons, stroke-based so they follow currentColor.
-const icons: Record<Service['icon'], string> = {
-  web: 'M3 5h18v14H3zM3 9h18M7 7h.01M10 7h.01',
-  mobile: 'M8 2h8a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zM11 18h2',
-  system: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM16.5 13v7M13 16.5h7',
-  api: 'M8 6l-6 6 6 6M16 6l6 6-6 6M14 4l-4 16',
-  test: 'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9',
-  ai: 'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z',
-};
 ---
 
 <section id="services" class="section" aria-labelledby="services-title">
@@ -26,14 +18,14 @@ const icons: Record<Service['icon'], string> = {
       <p class="eyebrow" data-reveal>
         {t('services.eyebrow')}
       </p>
-      <h2 id="services-title" class="section-title" data-reveal data-i="1">
-        {t('services.title')}
+      <h2 id="services-title" class="section-title" data-split>
+        <SplitWords text={t('services.title')} />
       </h2>
     </header>
 
     <ul class="services">
       {services.map((s, i) => (
-        <li class="service card" data-reveal data-i={String(i % 3)}>
+        <li class="service card" data-reveal data-i={String(i % 2)}>
           <span class="service__icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
@@ -48,11 +40,17 @@ const icons: Record<Service['icon'], string> = {
           </span>
           <h3 class="service__title">{s.title[lang]}</h3>
           <p class="service__body">{s.body[lang]}</p>
-          <ul class="service__tags">
-            {s.tags.map((tag) => (
-              <li class="tag">{tag}</li>
-            ))}
-          </ul>
+          <div class="service__includes">
+            <h4 class="service__label">{t('services.includes')}</h4>
+            <ul>
+              {s.includes[lang].map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <p class="service__tech">
+            <span>{t('services.tech')}:</span> {s.tech.join(' · ')}
+          </p>
         </li>
       ))}
     </ul>
@@ -62,7 +60,7 @@ const icons: Record<Service['icon'], string> = {
 <style>
   .services {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
     gap: 16px;
   }
 
@@ -127,9 +125,49 @@ const icons: Record<Service['icon'], string> = {
     flex: 1;
   }
 
-  .service__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
+  .service__includes {
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+
+  .service__label {
+    margin-bottom: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+
+  .service__includes li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--fg-muted);
+  }
+
+  .service__includes li + li {
+    margin-top: 4px;
+  }
+
+  .service__includes li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.55em;
+    width: 10px;
+    height: 6px;
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    transform: rotate(-45deg);
+  }
+
+  .service__tech {
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+  }
+
+  .service__tech span {
+    font-weight: 600;
   }
 </style>

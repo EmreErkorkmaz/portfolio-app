@@ -1,5 +1,6 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
+import SplitWords from './SplitWords.astro';
 import { engagement } from '../data/process';
 import { site } from '../data/site';
 
@@ -22,8 +23,8 @@ const facts = [
       <p class="eyebrow" data-reveal>
         {t('engagement.eyebrow')}
       </p>
-      <h2 id="engagement-title" class="section-title" data-reveal data-i="1">
-        {t('engagement.title')}
+      <h2 id="engagement-title" class="section-title" data-split>
+        <SplitWords text={t('engagement.title')} />
       </h2>
     </header>
 

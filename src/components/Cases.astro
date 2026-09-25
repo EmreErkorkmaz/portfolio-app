@@ -1,6 +1,7 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
 import { cases } from '../data/cases';
+import SplitWords from './SplitWords.astro';
 
 interface Props {
   lang: Lang;
@@ -16,8 +17,8 @@ const t = useTranslations(lang);
       <p class="eyebrow" data-reveal>
         {t('cases.eyebrow')}
       </p>
-      <h2 id="work-title" class="section-title" data-reveal data-i="1">
-        {t('cases.title')}
+      <h2 id="work-title" class="section-title" data-split>
+        <SplitWords text={t('cases.title')} />
       </h2>
       <p class="cases__note" data-reveal data-i="2">
         {t('cases.note')}
@@ -38,26 +39,30 @@ const t = useTranslations(lang);
                 {c.title[lang]}
               </h3>
 
-              <div class="case__text">
-                <div>
-                  <h4 class="case__label">{t('cases.challenge')}</h4>
-                  <p>{c.challenge[lang]}</p>
-                </div>
-                <div>
-                  <h4 class="case__label">{t('cases.approach')}</h4>
-                  <p>{c.approach[lang]}</p>
-                </div>
-              </div>
+              <p class="case__summary">{c.summary[lang]}</p>
 
-              <ul class="case__stack">
-                {c.stack.map((s) => (
-                  <li class="tag">{s}</li>
-                ))}
-              </ul>
+              <details class="case__details">
+                <summary>{t('cases.details')}</summary>
+                <div class="case__text">
+                  <div>
+                    <h4 class="case__label">{t('cases.challenge')}</h4>
+                    <p>{c.challenge[lang]}</p>
+                  </div>
+                  <div>
+                    <h4 class="case__label">{t('cases.approach')}</h4>
+                    <p>{c.approach[lang]}</p>
+                  </div>
+                </div>
+                <ul class="case__stack">
+                  {c.stack.map((s) => (
+                    <li class="tag">{s}</li>
+                  ))}
+                </ul>
+              </details>
             </div>
 
             <div class="case__metric">
-              <span class="case__metric-value">{c.metric.value}</span>
+              <span class="case__metric-value">{c.metric.value[lang]}</span>
               <span class="case__metric-label">{c.metric.label[lang]}</span>
             </div>
           </article>
@@ -105,7 +110,7 @@ const t = useTranslations(lang);
     grid-template-columns: 180px 1fr 220px;
     gap: var(--space-l);
     padding: var(--space-l);
-    min-height: min(560px, 70svh);
+    min-height: min(420px, 60svh);
     transform-origin: center top;
     background:
       radial-gradient(
@@ -144,6 +149,67 @@ const t = useTranslations(lang);
 
   .case__title {
     font-size: var(--step-3);
+  }
+
+  .case__summary {
+    font-size: var(--step-1);
+    line-height: 1.5;
+    color: var(--fg);
+    max-width: 52ch;
+  }
+
+  .case__details {
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+  }
+
+  .case__details summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--fg-muted);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .case__details summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .case__details summary::before {
+    content: '+';
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .case__details[open] summary::before {
+    transform: rotate(45deg);
+  }
+
+  .case__details summary:hover {
+    color: var(--fg);
+  }
+
+  .case__details[open] > :not(summary) {
+    margin-top: var(--space-s);
+  }
+
+  /* An expanded card can be taller than the viewport; stop it sticking so every line
+     stays reachable and the next card can't slide over it. */
+  .case:has(.case__details[open]) {
+    position: relative;
   }
 
   .case__text {

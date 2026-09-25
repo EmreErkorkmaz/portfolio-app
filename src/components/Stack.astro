@@ -1,6 +1,9 @@
 ---
 import { useTranslations, type Lang } from '../i18n/ui';
 import { stack, learning } from '../data/stack';
+import { techServices } from '../data/services';
+import { icons } from '../data/icons';
+import SplitWords from './SplitWords.astro';
 
 interface Props {
   lang: Lang;
@@ -18,10 +21,38 @@ const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
       <p class="eyebrow" data-reveal>
         {t('stack.eyebrow')}
       </p>
-      <h2 id="stack-title" class="section-title" data-reveal data-i="1">
-        {t('stack.title')}
+      <h2 id="stack-title" class="section-title" data-split>
+        <SplitWords text={t('stack.title')} />
       </h2>
-      <ul class="legend" data-reveal data-i="2">
+    </header>
+
+    <ul class="tech-services">
+      {techServices.map((s, i) => (
+        <li class="tech-service" data-reveal data-i={String(i % 3)}>
+          <span class="tech-service__icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d={icons[s.icon]}
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <h3 class="tech-service__title">{s.title[lang]}</h3>
+          <p class="tech-service__body">{s.body[lang]}</p>
+          <p class="tech-service__tags">{s.tags.join(' · ')}</p>
+        </li>
+      ))}
+    </ul>
+
+    <header class="skills-head">
+      <h3 class="skills-title" data-reveal>
+        {t('stack.skills')}
+      </h3>
+      <ul class="legend" data-reveal data-i="1">
         {(['expert', 'advanced', 'intermediate'] as const).map((lvl) => (
           <li>
             <span class="level" data-level={dots[lvl]} aria-hidden="true">
@@ -43,9 +74,9 @@ const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
           data-i={String(gi % 3)}
           aria-labelledby={`stack-${g.id}`}
         >
-          <h3 id={`stack-${g.id}`} class="group__title">
+          <h4 id={`stack-${g.id}`} class="group__title">
             {g.title[lang]}
-          </h3>
+          </h4>
           <span class="group__rule" data-draw="x" aria-hidden="true" />
           <ul class="group__items">
             {g.items.map((item) => (
@@ -74,11 +105,70 @@ const dots = { expert: 3, advanced: 2, intermediate: 1 } as const;
 </section>
 
 <style>
+  /* Flex rather than grid so a partial last row stretches instead of leaving empty cells. */
+  .tech-services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    margin-bottom: var(--space-xl);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--line);
+    overflow: hidden;
+  }
+
+  .tech-service {
+    flex: 1 1 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: var(--space-m);
+    background: var(--bg);
+  }
+
+  .tech-service__icon {
+    color: var(--accent-ink);
+  }
+
+  .tech-service__icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tech-service__title {
+    font-size: var(--step-1);
+  }
+
+  .tech-service__body {
+    flex: 1;
+    color: var(--fg-muted);
+    font-size: var(--step--1);
+    line-height: 1.55;
+  }
+
+  .tech-service__tags {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+  }
+
+  .skills-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-bottom: var(--space-l);
+  }
+
+  .skills-title {
+    font-size: var(--step-3);
+  }
+
   .legend {
     display: flex;
     flex-wrap: wrap;
     gap: 8px 20px;
-    margin-top: var(--space-m);
     font-size: var(--step--1);
     color: var(--fg-muted);
   }
