@@ -1,7 +1,6 @@
 import type { Localized } from '../i18n/ui';
 
-export type ServiceIcon =
-  'web' | 'store' | 'mobile' | 'improve' | 'rocket' | 'system' | 'api' | 'test' | 'ai' | 'team';
+export type ServiceIcon = 'web' | 'store' | 'mobile' | 'improve' | 'rocket' | 'team';
 
 // First layer: what the client gets, written from the client's side (benefit first,
 // present tense). Technology is a footnote.
@@ -171,57 +170,5 @@ export const services: Service[] = [
       ],
     },
     tech: ['React', 'Next.js', 'TypeScript'],
-  },
-];
-
-// Second layer: services for engineering teams, shown in the "For technical teams" section.
-export interface TechService {
-  id: string;
-  icon: ServiceIcon;
-  title: Localized;
-  body: Localized;
-  tags: string[];
-}
-
-export const techServices: TechService[] = [
-  {
-    id: 'system',
-    icon: 'system',
-    title: { tr: 'Design system', en: 'Design systems' },
-    body: {
-      tr: 'npm paketi olarak yayınlanan component kütüphaneleri, Tailwind plugin’leri ve Storybook dokümantasyonu.',
-      en: 'Component libraries published as npm packages, Tailwind plugins and Storybook docs.',
-    },
-    tags: ['shadcn/ui', 'Base UI', 'Tailwind', 'Storybook'],
-  },
-  {
-    id: 'api',
-    icon: 'api',
-    title: { tr: 'Backend & API', en: 'Backend & APIs' },
-    body: {
-      tr: 'Frontend’i bekletmeyen REST ve GraphQL uçları, kimlik doğrulama ve gerçek zamanlı veri.',
-      en: 'REST and GraphQL endpoints that unblock the frontend, authentication and real-time data.',
-    },
-    tags: ['Node.js', 'NestJS', 'Express', 'GraphQL'],
-  },
-  {
-    id: 'test',
-    icon: 'test',
-    title: { tr: 'Test altyapısı', en: 'Test infrastructure' },
-    body: {
-      tr: 'Uçtan uca Playwright pipeline’ları, component ve entegrasyon testleri.',
-      en: 'End-to-end Playwright pipelines, component and integration tests.',
-    },
-    tags: ['Playwright', 'Cypress', 'RTL', 'MSW'],
-  },
-  {
-    id: 'ai',
-    icon: 'ai',
-    title: { tr: 'AI destekli geliştirme', en: 'AI-assisted delivery' },
-    body: {
-      tr: 'Claude ve Copilot’u design system üzerine standart kod üretecek şekilde ekip akışına entegre ederim.',
-      en: 'I wire Claude and Copilot into team workflows to generate standards-compliant code on top of the design system.',
-    },
-    tags: ['Claude', 'GitHub Copilot'],
   },
 ];

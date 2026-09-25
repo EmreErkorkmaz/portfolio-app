@@ -42,7 +42,7 @@ export const cases: CaseStudy[] = [
       tr: 'PWA’nın istemci tarafı çekirdek mantığı ve sipariş yaşam döngüsü; native webview entegrasyonuyla web sürümlerinin mobil takvimden ayrılması ve push bildirimleri gibi native yeteneklerin web katmanına açılması; Playwright ile uçtan uca test pipeline’ları.',
       en: 'The PWA’s client-side core and order life cycle; native webview integration that decouples web releases from the mobile calendar and exposes native capabilities such as push notifications; end-to-end Playwright pipelines.',
     },
-    stack: ['React', 'TypeScript', 'PWA', 'Webview', 'Playwright'],
+    stack: ['React', 'TypeScript', 'PWA', 'Native integration', 'E2E testing'],
   },
   {
     id: 'design-system',
@@ -64,10 +64,10 @@ export const cases: CaseStudy[] = [
       en: 'The same UI pieces rebuilt by different teams, and design consistency eroding with every release.',
     },
     approach: {
-      tr: 'shadcn/ui ve Base UI üzerine kurulu, npm paketi olarak dağıtılan merkezi component kütüphanesi; aynı paketten sunulan Tailwind plugin’i ve Storybook dokümantasyonu; bu sistem üzerinde standart component üreten Claude ve Copilot akışları.',
-      en: 'A central component library on shadcn/ui and Base UI, distributed as npm packages with a Tailwind plugin from the same package and Storybook docs; Claude and Copilot workflows that generate standard components on top of it.',
+      tr: 'React tabanlı, npm paketi olarak dağıtılan merkezi design system; paylaşılan tasarım token’ları ve Storybook dokümantasyonu; bu sistem üzerinde standart component üreten yapay zekâ destekli geliştirme akışları.',
+      en: 'A React-based design system distributed as npm packages, with shared design tokens and Storybook documentation; AI-assisted development workflows that generate standard components on top of it.',
     },
-    stack: ['shadcn/ui', 'Base UI', 'Tailwind plugin', 'Storybook', 'npm', 'Claude'],
+    stack: ['React', 'TypeScript', 'Design system', 'Storybook', 'AI tooling'],
   },
   {
     id: 'realtime',
@@ -89,10 +89,10 @@ export const cases: CaseStudy[] = [
       en: 'Following large, constantly streaming data sets without interruption across multilingual B2B and B2C interfaces.',
     },
     approach: {
-      tr: 'React ve Angular ile gerçek zamanlı veriyi sayfalamadan gösteren arayüzler; uygulamalar arasında paylaşılan form hook’u ve validation kütüphanesi; yeni projeleri hızlandıran uygulama şablonu; RTL, MSW ve Cypress ile test.',
-      en: 'React and Angular interfaces that render real-time data without pagination; a form hook and validation library shared across apps; a project template to speed up new builds; tests with RTL, MSW and Cypress.',
+      tr: 'React ve Angular ile gerçek zamanlı veriyi sayfalamadan gösteren arayüzler; uygulamalar arasında paylaşılan form ve doğrulama kütüphaneleri; yeni projeleri hızlandıran uygulama şablonu; birim ve uçtan uca test otomasyonu.',
+      en: 'React and Angular interfaces that render real-time data without pagination; form and validation libraries shared across apps; a project template to speed up new builds; unit and end-to-end test automation.',
     },
-    stack: ['React', 'Angular', 'Material UI', 'Redux Saga', 'Cypress', 'MSW'],
+    stack: ['React', 'Angular', 'TypeScript', 'Redux', 'Real-time data', 'Test automation'],
   },
   {
     id: 'ecommerce',
@@ -117,6 +117,6 @@ export const cases: CaseStudy[] = [
       tr: 'Next.js, TypeScript ve Redux ile server-side rendering kullanan çok dilli e-ticaret uygulaması; aynı dönemde React ve GraphQL ile geliştirilen anket ürünü.',
       en: 'A multilingual e-commerce app with server-side rendering on Next.js, TypeScript and Redux; a survey product built with React and GraphQL in the same period.',
     },
-    stack: ['Next.js', 'TypeScript', 'Redux', 'GraphQL'],
+    stack: ['Next.js', 'TypeScript', 'SSR', 'GraphQL', 'i18n'],
   },
 ];

@@ -2,7 +2,8 @@
 
 - Static Astro 7 site, bilingual (EN default at `/`, TR at `/tr/`). All copy lives in `src/data/*` and `src/i18n/ui.ts`.
 - Language: an inline script on `/` only sends visitors to `/tr/` when their saved choice (`localStorage.lang`, set by the nav switch) or, failing that, their primary browser language is Turkish. `/tr/` never redirects.
-- Content source of truth: the Notion page "master_cv.json". Follow its skill levels and notes. Java, Spring Boot, AWS and Go are "learning"/basic, so never put them in headlines or summaries.
+- Content source of truth: the Notion page "master_cv.json". Keep Java, Spring Boot, AWS and Go out of headlines and summaries.
+- Technical section (`src/data/stack.ts`): broad capability areas the industry values, only widely recognised technologies, no per-item skill levels and no niche libraries (e.g. shadcn/ui, MSW, Ant Design). Java/Spring Boot and AWS may appear in those lists by the owner's decision (2026-09-25); never invent years, metrics or production claims.
 - Copy is layered for two audiences: the first layer (hero, services, case titles/summaries, process, FAQ, engagement) is plain language for non-technical clients, with no jargon; technology names and technical detail live in the second layer (tech lines on cards, the case `<details>` disclosures, the "For technical teams" section).
 - Positioning: freelance/contract. Never name former employers or publish the phone number (see Notion master_cv.json). `npm run verify:privacy` enforces this on `dist/` using a private blocklist: the git-ignored `.privacy-blocklist` file locally, the `PRIVACY_BLOCKLIST` secret in CI. Never commit the blocklist terms.
 - Keep `vite.build.cssMinify: 'esbuild'`. Lightning CSS merges `animation-timeline` into the `animation` shorthand, which breaks every scroll-driven animation.
