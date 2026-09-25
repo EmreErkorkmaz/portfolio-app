@@ -11,7 +11,7 @@ export interface Service {
   body: Localized;
   bestFor: Localized;
   includes: Localized<string[]>;
-  tech: string[];
+  tech: Localized<string[]>;
 }
 
 export const services: Service[] = [
@@ -39,7 +39,10 @@ export const services: Service[] = [
         'Multilingual option',
       ],
     },
-    tech: ['Next.js', 'Astro', 'TypeScript'],
+    tech: {
+      tr: ['SSR / SSG', 'Teknik SEO', 'Core Web Vitals'],
+      en: ['SSR / SSG', 'Technical SEO', 'Core Web Vitals'],
+    },
   },
   {
     id: 'store',
@@ -65,7 +68,10 @@ export const services: Service[] = [
         'Product pages that stand out in search',
       ],
     },
-    tech: ['Next.js', 'SSR', 'TypeScript'],
+    tech: {
+      tr: ['SSR', 'Ödeme entegrasyonu', 'Teknik SEO'],
+      en: ['SSR', 'Payment integration', 'Technical SEO'],
+    },
   },
   {
     id: 'mobile',
@@ -91,7 +97,10 @@ export const services: Service[] = [
         'Installable web app option, no app store needed',
       ],
     },
-    tech: ['React Native', 'PWA', 'TypeScript'],
+    tech: {
+      tr: ['Cross-platform', 'PWA', 'Push bildirimleri'],
+      en: ['Cross-platform', 'PWA', 'Push notifications'],
+    },
   },
   {
     id: 'mvp',
@@ -117,7 +126,10 @@ export const services: Service[] = [
         'A product ready for users and investors',
       ],
     },
-    tech: ['React', 'Next.js', 'Node.js'],
+    tech: {
+      tr: ['Full-stack geliştirme', 'API tasarımı', 'CI/CD'],
+      en: ['Full-stack development', 'API design', 'CI/CD'],
+    },
   },
   {
     id: 'improve',
@@ -143,7 +155,10 @@ export const services: Service[] = [
         'Ongoing maintenance and support',
       ],
     },
-    tech: ['React', 'TypeScript', 'Playwright'],
+    tech: {
+      tr: ['Performans analizi', 'Test otomasyonu', 'Refactoring'],
+      en: ['Performance audit', 'Test automation', 'Refactoring'],
+    },
   },
   {
     id: 'team',
@@ -169,6 +184,9 @@ export const services: Service[] = [
         'Lasting quality: tests and documentation',
       ],
     },
-    tech: ['React', 'Next.js', 'TypeScript'],
+    tech: {
+      tr: ['Frontend', 'Backend', 'Code review'],
+      en: ['Frontend', 'Backend', 'Code review'],
+    },
   },
 ];

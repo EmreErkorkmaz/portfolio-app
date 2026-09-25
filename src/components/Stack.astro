@@ -34,10 +34,14 @@ const t = useTranslations(lang);
           <h3 class="cap__title">{c.title[lang]}</h3>
           <p class="cap__body">{c.body[lang]}</p>
           <ul class="cap__items" aria-label={c.title[lang]}>
-            {c.items.map((item) => (
+            {c.items[lang].map((item) => (
               <li class="tag">{item}</li>
             ))}
           </ul>
+          <p class="cap__eco">
+            <span>{t('stack.ecosystem')}</span>
+            {c.ecosystem.join(' · ')}
+          </p>
         </li>
       ))}
     </ul>
@@ -98,6 +102,21 @@ const t = useTranslations(lang);
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+  }
+
+  .cap__eco {
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+  }
+
+  .cap__eco span {
+    margin-right: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-ink);
   }
 
   .practices {

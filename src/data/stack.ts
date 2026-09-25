@@ -1,13 +1,14 @@
 import type { Localized } from '../i18n/ui';
 
-// Capability areas for technical readers (CTOs, tech leads, recruiters). Deliberately
-// broad: disciplines the industry values, with only the widely recognised technologies
-// named. No per-item skill levels and no niche libraries (e.g. shadcn/ui, MSW).
+// Capability areas for technical readers (CTOs, tech leads, recruiters). Lead with what a
+// capability delivers (SSR, real-time, event-driven...), not with framework names; the
+// frameworks are a secondary "ecosystem" line. No per-item skill levels, no niche libraries.
 export interface Capability {
   id: string;
   title: Localized;
   body: Localized;
-  items: string[];
+  items: Localized<string[]>;
+  ecosystem: string[];
 }
 
 export const capabilities: Capability[] = [
@@ -15,55 +16,157 @@ export const capabilities: Capability[] = [
     id: 'frontend',
     title: { tr: 'Frontend mimarisi', en: 'Frontend architecture' },
     body: {
-      tr: 'Ölçeklenen, bakımı kolay ve hızlı arayüzler: component mimarisi, state yönetimi, SSR/SSG ve design system’ler.',
-      en: 'Scalable, maintainable and fast interfaces: component architecture, state management, SSR/SSG and design systems.',
+      tr: 'Hızlı açılan, arama motorlarında görünen ve büyüdükçe bakımı kolay kalan arayüzler.',
+      en: 'Interfaces that load fast, rank in search and stay maintainable as they grow.',
     },
-    items: ['React', 'Next.js', 'TypeScript', 'Angular', 'Design systems'],
+    items: {
+      tr: [
+        'SSR / SSG',
+        'Tek sayfa uygulamalar (SPA)',
+        'Component mimarisi',
+        'State yönetimi',
+        'Design system',
+        'Çok dilli arayüzler',
+      ],
+      en: [
+        'SSR / SSG',
+        'Single-page apps (SPA)',
+        'Component architecture',
+        'State management',
+        'Design systems',
+        'Internationalisation',
+      ],
+    },
+    ecosystem: ['React', 'Vue', 'Angular', 'Next.js', 'Astro', 'TypeScript'],
   },
   {
     id: 'backend',
     title: { tr: 'Backend ve API tasarımı', en: 'Backend & API design' },
     body: {
-      tr: 'REST ve GraphQL API’ler, kimlik doğrulama, gerçek zamanlı iletişim ve servisler arası entegrasyon.',
-      en: 'REST and GraphQL APIs, authentication, real-time communication and service-to-service integration.',
+      tr: 'Güvenli, ölçeklenebilir ve iyi belgelenmiş servisler; arayüzü asla bekletmeyen API’ler.',
+      en: 'Secure, scalable, well-documented services and APIs that never keep the interface waiting.',
     },
-    items: ['Node.js', 'NestJS', 'Java', 'Spring Boot', 'REST', 'GraphQL', 'WebSockets'],
+    items: {
+      tr: [
+        'REST ve GraphQL API',
+        'Gerçek zamanlı iletişim',
+        'Kimlik doğrulama ve yetkilendirme',
+        'Olay tabanlı mimari',
+        'Mikroservisler',
+        'Üçüncü parti entegrasyonlar',
+      ],
+      en: [
+        'REST & GraphQL APIs',
+        'Real-time communication',
+        'Authentication & authorisation',
+        'Event-driven architecture',
+        'Microservices',
+        'Third-party integrations',
+      ],
+    },
+    ecosystem: ['Node.js', 'NestJS', 'Express', 'Java', 'Spring Boot'],
   },
   {
     id: 'data',
     title: { tr: 'Veri ve sistem tasarımı', en: 'Data & system design' },
     body: {
-      tr: 'İlişkisel ve NoSQL veritabanları, önbellekleme, mesaj kuyrukları ve mikroservis mimarisi.',
-      en: 'Relational and NoSQL databases, caching, message queues and microservice architecture.',
+      tr: 'Veriyi doğru modelleyen, yük altında hızını koruyan ve arıza anında ayakta kalan sistemler.',
+      en: 'Systems that model data well, stay fast under load and keep running when parts fail.',
     },
-    items: ['PostgreSQL', 'MongoDB', 'Redis', 'RabbitMQ', 'Microservices'],
+    items: {
+      tr: [
+        'İlişkisel veritabanları (SQL)',
+        'NoSQL',
+        'Önbellekleme',
+        'Mesaj kuyrukları',
+        'Veri modelleme',
+        'Dayanıklılık (retry, timeout)',
+      ],
+      en: [
+        'Relational databases (SQL)',
+        'NoSQL',
+        'Caching',
+        'Message queues',
+        'Data modelling',
+        'Resilience (retries, timeouts)',
+      ],
+    },
+    ecosystem: ['PostgreSQL', 'MongoDB', 'Redis', 'RabbitMQ'],
   },
   {
     id: 'mobile',
     title: { tr: 'Mobil', en: 'Mobile' },
     body: {
-      tr: 'Tek kod tabanından iOS ve Android uygulamaları, kurulabilir web uygulamaları ve native entegrasyonlar.',
-      en: 'iOS and Android apps from one codebase, installable web apps and native integrations.',
+      tr: 'Tek kod tabanından iOS ve Android; mağaza gerektirmeyen, kurulabilir web uygulamaları.',
+      en: 'iOS and Android from one codebase, plus installable web apps with no app store required.',
     },
-    items: ['React Native', 'PWA', 'Webview integration'],
+    items: {
+      tr: [
+        'Cross-platform uygulama',
+        'PWA ve çevrimdışı çalışma',
+        'Push bildirimleri',
+        'Native entegrasyon',
+      ],
+      en: [
+        'Cross-platform apps',
+        'PWA & offline support',
+        'Push notifications',
+        'Native integration',
+      ],
+    },
+    ecosystem: ['React Native', 'Expo', 'PWA'],
   },
   {
     id: 'quality',
     title: { tr: 'Kalite ve performans', en: 'Quality & performance' },
     body: {
-      tr: 'Uçtan uca test otomasyonu, Core Web Vitals odaklı performans, erişilebilirlik (WCAG) ve teknik SEO.',
-      en: 'End-to-end test automation, Core Web Vitals-driven performance, accessibility (WCAG) and technical SEO.',
+      tr: 'Her sürümde güvenle yayına çıkan, herkesin kullanabildiği ve hızlı açılan ürünler.',
+      en: 'Products that ship every release with confidence, work for everyone and load fast.',
     },
-    items: ['Playwright', 'Cypress', 'Jest', 'Core Web Vitals', 'Accessibility'],
+    items: {
+      tr: [
+        'Uçtan uca test otomasyonu',
+        'Birim ve entegrasyon testleri',
+        'Core Web Vitals',
+        'Erişilebilirlik (WCAG)',
+        'Teknik SEO',
+      ],
+      en: [
+        'End-to-end test automation',
+        'Unit & integration tests',
+        'Core Web Vitals',
+        'Accessibility (WCAG)',
+        'Technical SEO',
+      ],
+    },
+    ecosystem: ['Playwright', 'Cypress', 'Jest', 'Lighthouse'],
   },
   {
     id: 'devops',
     title: { tr: 'DevOps, bulut ve güvenlik', en: 'DevOps, cloud & security' },
     body: {
-      tr: 'Container’lar, CI/CD pipeline’ları, bulut dağıtımı, gözlemlenebilirlik ve güvenli kimlik doğrulama.',
-      en: 'Containers, CI/CD pipelines, cloud deployment, observability and secure authentication.',
+      tr: 'Her değişikliği otomatik test edip güvenle yayına alan, izlenebilir ve güvenli altyapı.',
+      en: 'Infrastructure that tests and ships every change automatically, observable and secure.',
     },
-    items: ['Docker', 'CI/CD', 'GitHub Actions', 'AWS', 'Cloudflare', 'OAuth / JWT'],
+    items: {
+      tr: [
+        'Container’lar',
+        'CI/CD',
+        'Bulut dağıtımı',
+        'CDN ve edge',
+        'Gözlemlenebilirlik',
+        'Uygulama güvenliği',
+      ],
+      en: [
+        'Containers',
+        'CI/CD',
+        'Cloud deployment',
+        'CDN & edge',
+        'Observability',
+        'Application security',
+      ],
+    },
+    ecosystem: ['Docker', 'GitHub Actions', 'AWS', 'Cloudflare'],
   },
 ];
 

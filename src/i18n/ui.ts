@@ -42,7 +42,7 @@ export const ui = {
       'İhtiyacınız bir web sitesi, bir online mağaza ya da ekibinize ek güç olsun: fikirden yayına kadar tüm süreç tek elden yönetilir.',
     'services.bestFor': 'İdeal olduğu durum',
     'services.includes': 'Neler dahil',
-    'services.tech': 'Kullanılan teknolojiler',
+    'services.tech': 'Teknik kapsam',
     'cases.eyebrow': 'Referans işler',
     'cases.title': 'Gerçek ölçekte, ölçülebilir sonuçlar.',
     'cases.note':
@@ -57,6 +57,7 @@ export const ui = {
     'stack.lead':
       'Frontend’den backend’e, veritabanından bulut altyapısına kadar ürünün her katmanında uçtan uca sorumluluk. Yeni bir teknoloji gerektiğinde hızlı adaptasyon.',
     'stack.practices': 'Çalışma pratikleri',
+    'stack.ecosystem': 'Ekosistem',
     'process.eyebrow': 'Süreç',
     'process.title': 'Nasıl çalışıyorum?',
     'engagement.eyebrow': 'Çalışma modeli',
@@ -112,7 +113,7 @@ export const ui = {
       'Whether you need a website, an online store or extra hands on your team, everything from idea to launch is handled in one place.',
     'services.bestFor': 'Best for',
     'services.includes': 'What’s included',
-    'services.tech': 'Built with',
+    'services.tech': 'Technical scope',
     'cases.eyebrow': 'Selected work',
     'cases.title': 'Real scale, measurable results.',
     'cases.note':
@@ -127,6 +128,7 @@ export const ui = {
     'stack.lead':
       'End-to-end ownership across every layer of a product, from frontend and backend to data and cloud infrastructure, with fast ramp-up whenever a new technology is needed.',
     'stack.practices': 'Ways of working',
+    'stack.ecosystem': 'Ecosystem',
     'process.eyebrow': 'Process',
     'process.title': 'How I work',
     'engagement.eyebrow': 'Engagement',
