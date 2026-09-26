@@ -69,8 +69,9 @@
   }
 }
 
-/* Hero rotator: in a 10s cycle each word slides in from below (0–4%), holds, then leaves
-   upwards (22–25%) exactly when the next word starts entering, so two words never
+/* Hero rotator (three words): in a 7.5s cycle each word slides in from below (0–5.33%),
+   holds, then leaves upwards (29.33–33.33%) exactly when the next word starts entering,
+   so two words never
    overlap. Negative delays (set below) offset the words; the first one is already past
    its entrance on the very first frame, which keeps the headline fully painted for LCP. */
 @keyframes word-cycle {
@@ -78,12 +79,12 @@
     opacity: 0;
     transform: translateY(0.3em);
   }
-  4%,
-  22% {
+  5.33%,
+  29.33% {
     opacity: 1;
     transform: none;
   }
-  25%,
+  33.33%,
   100% {
     opacity: 0;
     transform: translateY(-0.3em);
@@ -296,16 +297,13 @@
   }
 
   .rotator__word {
-    animation: word-cycle 10s var(--ease-out) infinite;
+    animation: word-cycle 7.5s var(--ease-out) infinite;
     animation-delay: -0.4s;
   }
   .rotator__word:nth-child(2) {
-    animation-delay: -7.9s;
-  }
-  .rotator__word:nth-child(3) {
     animation-delay: -5.4s;
   }
-  .rotator__word:nth-child(4) {
+  .rotator__word:nth-child(3) {
     animation-delay: -2.9s;
   }
 
