@@ -46,7 +46,7 @@ const cv = {
         'Set up AI-assisted workflows (Claude, GitHub Copilot) that generate standardised components on top of the design system.',
         'Unblocked frontend delivery by building the REST API endpoints it depended on with Node.js, Express and NestJS.',
         'Established Playwright end-to-end testing pipelines, significantly increasing code coverage and application reliability.',
-        'Worked with an external vendor to integrate an AI-powered live chat into the main customer web app.',
+        'Worked with an external vendor to integrate an AI-powered live chat into the main customer web app, reducing customer-support costs by 80%.',
       ],
     },
     {

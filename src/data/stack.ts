@@ -2,8 +2,9 @@ import type { Localized } from '../i18n/ui';
 
 // Capability pillars for technical readers (CTOs, tech leads, agencies). One sentence per
 // pillar on what it delivers, then an "ecosystem" line of widely recognised technologies
-// the owner has used in production. No skill levels, no niche libraries. Java, Spring
-// Boot and Go stay in these lists only, never in headlines or summaries. An AI pillar is
+// the owner has confirmed. No skill levels, no niche libraries. Java/Spring Boot
+// ("learning but available" in Notion) and Go stay in these lists only, never in
+// headlines or summaries. An AI pillar is
 // added only when it is backed by finished projects (see src/data/ai.ts).
 export interface Capability {
   id: string;
