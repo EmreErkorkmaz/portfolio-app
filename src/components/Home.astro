@@ -12,7 +12,7 @@ import ScrollTop from './ScrollTop.astro';
 import Faq from './Faq.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
 import { smbFaq } from '../data/faq';
-import { smbProcess } from '../data/process';
+import { process } from '../data/process';
 
 interface Props {
   lang: Lang;
@@ -31,15 +31,15 @@ const t = useTranslations(lang);
     <Hero lang={lang} />
     <Cases lang={lang} />
     <AiWork lang={lang} />
+    <Stack lang={lang} />
     <Process
       lang={lang}
-      steps={smbProcess}
+      steps={process}
       eyebrow={t('process.eyebrow')}
       title={t('process.title')}
     />
-    <Faq lang={lang} items={smbFaq} title={t('faq.title')} />
-    <Stack lang={lang} />
     <Engagement lang={lang} />
+    <Faq lang={lang} items={smbFaq} title={t('faq.title')} />
     <Contact
       lang={lang}
       title={t('contact.title')}
