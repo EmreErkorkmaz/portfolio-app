@@ -11,7 +11,7 @@ import Contact from './Contact.astro';
 import ScrollTop from './ScrollTop.astro';
 import Faq from './Faq.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
-import { smbFaq } from '../data/faq';
+import { faq } from '../data/faq';
 import { process } from '../data/process';
 
 interface Props {
@@ -39,7 +39,7 @@ const t = useTranslations(lang);
       title={t('process.title')}
     />
     <Engagement lang={lang} />
-    <Faq lang={lang} items={smbFaq} title={t('faq.title')} />
+    <Faq lang={lang} items={faq} title={t('faq.title')} />
     <Contact
       lang={lang}
       title={t('contact.title')}

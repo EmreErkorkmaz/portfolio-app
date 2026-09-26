@@ -79,3 +79,78 @@ export const smbFaq: FaqItem[] = [
     },
   },
 ];
+
+// Questions engineering leads, CTOs and agencies ask before a contract (home page).
+// Company structure stays deliberately general; rates are on request.
+export const faq: FaqItem[] = [
+  {
+    q: {
+      tr: 'Saat dilimi örtüşmesi nasıl?',
+      en: 'What is your timezone overlap?',
+    },
+    a: {
+      tr: 'Türkiye’den çalışıyorum (UTC+3, yaz saati uygulaması yok). Çalışma günüm İngiltere ve AB mesaisiyle, ABD Doğu Yakası’nda ise sabah saatleriyle örtüşüyor. Daily’ler ve review’lar bu örtüşen saatlere planlanır.',
+      en: 'I work from Türkiye (UTC+3, no daylight saving). My working day overlaps UK and EU hours, and US East Coast mornings. Stand-ups and reviews are planned into that overlap.',
+    },
+  },
+  {
+    q: {
+      tr: 'Mevcut bir kod tabanına nasıl adapte oluyorsunuz?',
+      en: 'How do you onboard into an existing codebase?',
+    },
+    a: {
+      tr: 'Önce projeyi yerelde çalıştırıp mimariyi ve yayın sürecini çıkarırım, ardından küçük ve review’dan geçmiş bir değişikliği erkenden canlıya taşırım. Sorular erken ve yazılı gelir; kod tabanındaki mevcut kurallar değiştirilmez, takip edilir.',
+      en: 'Local setup first, then a map of the architecture and release path, then a small, reviewed change to production early. Questions come early and in writing, and the conventions already in the codebase are followed rather than replaced.',
+    },
+  },
+  {
+    q: {
+      tr: 'Ne kadar hızlı başlayabilirsiniz?',
+      en: 'How quickly can you start?',
+    },
+    a: {
+      tr: 'Başlangıç tarihi tanışma görüşmesinde, mevcut taahhütlere göre netleşir. Sayfanın üstündeki durum etiketi şu an yeni iş alıp almadığımı gösterir.',
+      en: 'Start dates are agreed on the intro call, based on current commitments. The status badge at the top of this page shows whether I am taking on new work.',
+    },
+  },
+  {
+    q: {
+      tr: 'Sözleşme yapısı nasıl?',
+      en: 'How is the contract structured?',
+    },
+    a: {
+      tr: 'Tamamen uzaktan, saatlik ya da günlük faturalandırma. Sözleşmenin ayrıntıları, satın alma sürecinize uyacak şekilde her iş için ayrıca kararlaştırılır.',
+      en: 'Fully remote, billed hourly or daily. The details are agreed per engagement to fit your procurement process.',
+    },
+  },
+  {
+    q: {
+      tr: 'Ücretleriniz nedir?',
+      en: 'What are your rates?',
+    },
+    a: {
+      tr: 'Talep üzerine; kapsama, süreye ve haftalık çalışma saatine göre paylaşılır.',
+      en: 'Shared on request, based on scope, duration and weekly hours.',
+    },
+  },
+  {
+    q: {
+      tr: 'Sadece frontend mi, full-stack mi?',
+      en: 'Frontend only, or full stack?',
+    },
+    a: {
+      tr: 'Ağırlık frontend’de, full-stack yetkinlikle: frontend’de arayüz mimarisi, design system’ler ve performans; backend’de Node.js, Express ve NestJS ile REST API’ler, PostgreSQL ya da MongoDB ile.',
+      en: 'Frontend-led and full-stack capable: UI architecture, design systems and performance on the frontend; REST APIs with Node.js, Express and NestJS on the backend, on PostgreSQL or MongoDB.',
+    },
+  },
+  {
+    q: {
+      tr: 'Referans verebilir misiniz?',
+      en: 'Can you provide references?',
+    },
+    a: {
+      tr: 'Evet, önceki rollerden referanslar talep üzerine paylaşılır.',
+      en: 'Yes, references from previous roles are available on request.',
+    },
+  },
+];
