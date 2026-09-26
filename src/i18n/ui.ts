@@ -26,7 +26,7 @@ export const ui = {
     'hero.title.pre': '',
     'hero.title.post': 'için kıdemli TypeScript mühendisi.',
     'hero.title.full':
-      'Frontend platformları, full-stack özellikler ve yapay zekâ destekli ürünler için kıdemli TypeScript mühendisi.',
+      'Frontend mimarisi, full-stack özellikler ve yapay zekâ ürünleri için kıdemli TypeScript mühendisi.',
     'hero.lead':
       '2021’den bu yana canlı ortamda React ve TypeScript ürünleri geliştiriyorum: milyonlarca günlük siparişi taşıyan bir PWA’nın çekirdeği, npm paketi olarak dağıtılan bir design system ve gerçek zamanlı finans arayüzleri. Şimdi bu deneyimi LLM destekli ürün özelliklerine taşıyorum; İngiltere, AB ve ABD’deki ekiplerle uzaktan sözleşmeli çalışmaya açığım.',
     'hero.cta.primary': 'CV’yi indir (İngilizce)',
