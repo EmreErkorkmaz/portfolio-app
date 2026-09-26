@@ -1,6 +1,6 @@
 # Project notes for agents
 
-- Static Astro 7 site, deployed by Cloudflare Workers Builds (Worker `emre-erkorkmaz`, Git-connected; GitHub Actions only checks). Bilingual (EN default at `/`, TR at `/tr/`). All copy lives in `src/data/*` and `src/i18n/ui.ts`.
+- Static Astro 7 site, deployed by Cloudflare Workers Builds (Worker `emre-erkorkmaz`, Git-connected, config in `wrangler.jsonc` whose `name` must match the Worker; GitHub Actions only checks). Workers Builds does not wait for CI, so changes reach `main` only through PRs that pass the "Build & audit" check. Bilingual (EN default at `/`, TR at `/tr/`). All copy lives in `src/data/*` and `src/i18n/ui.ts`.
 - Language: an inline script on `/` only sends visitors to `/tr/` when their saved choice (`localStorage.lang`, set by the nav switch) or, failing that, their primary browser language is Turkish. `/tr/` never redirects.
 - Content source of truth: the Notion page "master_cv.json". Keep Java, Spring Boot, AWS and Go out of headlines and summaries.
 - Technical section (`src/data/stack.ts`): broad capability areas the industry values, only widely recognised technologies, no per-item skill levels and no niche libraries (e.g. shadcn/ui, MSW, Ant Design). Java/Spring Boot and AWS may appear in those lists by the owner's decision (2026-09-25); never invent years, metrics or production claims.

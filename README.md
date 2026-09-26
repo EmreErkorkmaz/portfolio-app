@@ -43,19 +43,23 @@ locally, the `PRIVACY_BLOCKLIST` secret in CI.
 
 ## Deployment
 
-`.github/workflows/ci.yml`:
+Two independent systems, joined by branch protection:
 
-- **Pull requests**: format check, `astro check`, build, privacy check, Lighthouse CI.
-- **Push to `main`**: the same steps, then `wrangler pages deploy` to the Cloudflare Pages
-  project `emre-erkorkmaz`.
+- **Cloudflare Workers Builds** deploys the site. The Worker `emre-erkorkmaz` is connected to
+  this repository; every push to `main` runs `npm run build` and `npx wrangler deploy`, which
+  reads [`wrangler.jsonc`](wrangler.jsonc) (static assets from `dist/`, `404.html` for unknown
+  paths). The custom domain `emreerkorkmaz.dev` points at this Worker.
+- **GitHub Actions** (`.github/workflows/ci.yml`) only checks: format, `astro check`, build,
+  privacy check and Lighthouse (desktop + mobile, all categories ≥ 95). Reports are uploaded as
+  the `lighthouse-reports` artifact.
 
-One-time setup:
+Workers Builds does not wait for GitHub Actions, so `main` must be protected:
 
-1. Create a Cloudflare Pages project named `emre-erkorkmaz` (Direct Upload).
-2. Create a Cloudflare API token with the **Cloudflare Pages: Edit** permission.
-3. Add the repository secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` and
-   `PRIVACY_BLOCKLIST` (the same terms as your local `.privacy-blocklist`, one per line).
-4. Protect `main`: require pull requests and the **Build & audit** check.
-5. The site is served from the custom domain `emreerkorkmaz.dev`, attached to the Pages project.
-   If the domain changes, update `site` in `astro.config.mjs` (or set `SITE_URL`) and the sitemap
-   line in `public/robots.txt`.
+1. Settings → Branches → rule for `main`: require a pull request, require the **Build & audit**
+   status check, and block direct pushes.
+2. Repository secret `PRIVACY_BLOCKLIST`: the same terms as your local `.privacy-blocklist`,
+   one per line.
+3. If the domain changes, update `site` in `astro.config.mjs` (or set `SITE_URL`) and the
+   sitemap line in `public/robots.txt`.
+
+Dependabot (`.github/dependabot.yml`) opens weekly update PRs for GitHub Actions and npm.
