@@ -1,0 +1,157 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import { getNotes } from '../../data/notes';
+import { useTranslations } from '../../i18n/ui';
+
+// One route file for the list (/notes/) and each note (/notes/<id>/). With no published
+// notes it returns no paths, so nothing under /notes is built at all.
+export async function getStaticPaths() {
+  const notes = await getNotes();
+  if (notes.length === 0) return [];
+  return [
+    { params: { slug: undefined }, props: { note: undefined, notes } },
+    ...notes.map((note) => ({ params: { slug: note.id }, props: { note, notes } })),
+  ];
+}
+
+const { note, notes } = Astro.props;
+const t = useTranslations('en');
+const date = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const { Content } = note ? await render(note) : { Content: null };
+const route = note ? `notes/${note.id}/` : 'notes/';
+---
+
+<Base
+  lang="en"
+  title={note ? `${note.data.title} — Emre Erkorkmaz` : 'Notes — Emre Erkorkmaz'}
+  description={
+    note
+      ? note.data.description
+      : 'Short technical notes on frontend, fullstack TypeScript and AI product work.'
+  }
+  route={route}
+  translated={false}
+>
+  <a class="skip-link" href="#main">
+    {t('skip')}
+  </a>
+  <Nav lang="en" route={route} translated={false} />
+  <main id="main" class="notes container">
+    {note && Content ? (
+      <article class="note">
+        <p class="eyebrow">
+          <a href="/notes/">Notes</a> ·{' '}
+          <time datetime={note.data.date.toISOString()}>{date(note.data.date)}</time>
+        </p>
+        <h1 class="section-title">{note.data.title}</h1>
+        <div class="note__body">
+          <Content />
+        </div>
+      </article>
+    ) : (
+      <>
+        <header class="section-head">
+          <p class="eyebrow">Notes</p>
+          <h1 class="section-title">Notes</h1>
+          <p class="section-lead">
+            Short technical write-ups on frontend, fullstack TypeScript and AI product work.
+          </p>
+        </header>
+        <ol class="notes__list">
+          {notes.map((n) => (
+            <li class="card notes__item">
+              <time datetime={n.data.date.toISOString()}>{date(n.data.date)}</time>
+              <h2>
+                <a href={`/notes/${n.id}/`}>{n.data.title}</a>
+              </h2>
+              <p>{n.data.description}</p>
+            </li>
+          ))}
+        </ol>
+      </>
+    )}
+  </main>
+</Base>
+
+<style>
+  .notes {
+    padding-top: calc(var(--nav-h) + var(--space-l));
+    padding-bottom: var(--space-xl);
+  }
+
+  .notes__list {
+    display: grid;
+    gap: 16px;
+    margin: var(--space-l) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .notes__item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: var(--space-m);
+  }
+
+  .notes__item time,
+  .note time {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--fg-muted);
+  }
+
+  .notes__item h2 {
+    font-size: var(--step-2);
+  }
+
+  .notes__item a {
+    color: inherit;
+  }
+
+  .notes__item p {
+    color: var(--fg-muted);
+  }
+
+  .note {
+    max-width: 68ch;
+  }
+
+  .note .section-title {
+    margin-block: var(--space-s) var(--space-l);
+  }
+
+  .note__body {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    font-size: var(--step-0);
+    line-height: 1.7;
+  }
+
+  .note__body :global(h2),
+  .note__body :global(h3) {
+    margin-top: 1em;
+  }
+
+  .note__body :global(pre) {
+    overflow-x: auto;
+    padding: var(--space-s);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-sunk);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  .note__body :global(code) {
+    font-family: var(--font-mono);
+  }
+
+  .note__body :global(a) {
+    color: var(--accent);
+  }
+</style>
