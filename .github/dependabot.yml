@@ -1,6 +1,8 @@
 # Weekly update PRs; CI runs on each one before anything reaches main.
 version: 2
 updates:
+  # Action majors are kept on purpose: they usually carry runtime moves (e.g. Node 20 -> 24)
+  # that GitHub later enforces, and CI exercises them fully on the PR.
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -9,11 +11,16 @@ updates:
       actions:
         patterns: ['*']
 
+  # npm: minor and patch only. Major upgrades (e.g. TypeScript 6 -> 7, Astro 7 -> 8) can
+  # break the build and are done by hand, deliberately.
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
     groups:
       minor-and-patch:
         update-types: [minor, patch]
