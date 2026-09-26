@@ -5,7 +5,8 @@ export interface Step {
   body: Localized;
 }
 
-export const process: Step[] = [
+// Small-business project flow (the /services page).
+export const smbProcess: Step[] = [
   {
     title: { tr: 'Keşif', en: 'Discovery' },
     body: {
@@ -36,26 +37,66 @@ export const process: Step[] = [
   },
 ];
 
+// Contract flow for engineering teams (home page).
+export const process: Step[] = [
+  {
+    title: { tr: 'Tanışma görüşmesi', en: 'Intro call' },
+    body: {
+      tr: 'Kod tabanını, ekibi ve teslim edilmesi gerekenleri konuşuruz. Herhangi bir şey imzalanmadan önce uyum konusunda net bir yanıt alırsınız.',
+      en: 'We go through the codebase, the team and what needs to ship. You get a straight answer on fit before anything is signed.',
+    },
+  },
+  {
+    title: { tr: 'Adaptasyon', en: 'Onboarding' },
+    body: {
+      tr: 'Projeyi yerelde çalıştırma, mimariyi ve yayın sürecini çıkarma. Sorular erken ve yazılı gelir; kod tabanındaki mevcut kurallar korunur.',
+      en: 'Local setup, then a map of the architecture and release path. Questions come early and in writing; the codebase’s existing conventions are followed.',
+    },
+  },
+  {
+    title: { tr: 'İlk değişiklik', en: 'First change' },
+    body: {
+      tr: 'Küçük, review’dan geçmiş bir değişiklik erkenden canlıya çıkar; kurulumu doğrular ve büyük işlerden önce güven oluşturur.',
+      en: 'A small, reviewed change goes to production early, proving the setup and building trust before larger work.',
+    },
+  },
+  {
+    title: { tr: 'Düzenli teslimat', en: 'Steady delivery' },
+    body: {
+      tr: 'Testleriyle birlikte küçük pull request’ler, asenkron ilerleme notları ve sözleşme bittiğinde ekipte kalan dokümantasyon.',
+      en: 'Small pull requests with tests, async progress updates, and documentation that stays with the team when the contract ends.',
+    },
+  },
+];
+
+// Contract terms. Rates, notice period and weekly hours are deliberately not published.
 export const engagement: { title: Localized; body: Localized }[] = [
   {
-    title: { tr: 'Proje bazlı', en: 'Fixed scope' },
+    title: { tr: 'Uzaktan sözleşme', en: 'Remote contract' },
     body: {
-      tr: 'Kapsamı belli bir site, mağaza ya da uygulama için net teslim tarihi ve sabit fiyat.',
-      en: 'A clear deadline and a fixed price for a defined site, store or app.',
+      tr: 'Saatlik ya da günlük, tamamen uzaktan. Sözleşme yapısı her iş için ayrıca kararlaştırılır.',
+      en: 'Hourly or daily, fully remote. The contract setup is agreed per engagement.',
     },
   },
   {
-    title: { tr: 'Sözleşmeli', en: 'Contract' },
+    title: { tr: 'Ücret', en: 'Rates' },
     body: {
-      tr: 'Saatlik ya da günlük çalışma; ekibinize ihtiyaç duyduğunuz anda deneyimli bir geliştirici.',
-      en: 'Hourly or daily; an experienced developer on your team exactly when you need one.',
+      tr: 'Talep üzerine; kapsama ve süreye göre paylaşılır.',
+      en: 'On request, based on scope and duration.',
     },
   },
   {
-    title: { tr: 'Uzun dönem', en: 'Long term' },
+    title: { tr: 'Çalışma saatleri', en: 'Working hours' },
     body: {
-      tr: 'Haftanın belirli günlerinde düzenli destek; ürününüz sürekli gelişir ve bakımlı kalır.',
-      en: 'Regular support on set days each week, so your product keeps improving and stays maintained.',
+      tr: 'UTC+3, yaz saati uygulaması yok. İngiltere ve AB mesaisiyle örtüşen gün, ABD Doğu Yakası sabahlarıyla kısmi örtüşme.',
+      en: 'UTC+3, no daylight saving. A working day that overlaps UK and EU hours, with partial overlap on US East Coast mornings.',
+    },
+  },
+  {
+    title: { tr: 'Referanslar', en: 'References' },
+    body: {
+      tr: 'Önceki rollerden referanslar talep üzerine paylaşılır.',
+      en: 'References from previous roles are available on request.',
     },
   },
 ];

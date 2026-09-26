@@ -1,0 +1,122 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { aiProjects } from '../data/ai';
+import SplitWords from './SplitWords.astro';
+
+// Renders nothing until src/data/ai.ts holds at least one finished project.
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{aiProjects.length > 0 && (
+  <section id="ai" class="section" aria-labelledby="ai-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow" data-reveal>
+          {t('ai.eyebrow')}
+        </p>
+        <h2 id="ai-title" class="section-title" data-split>
+          <SplitWords text={t('ai.title')} />
+        </h2>
+        <p class="section-lead" data-reveal data-i="1">
+          {t('ai.lead')}
+        </p>
+      </header>
+
+      <ul class="ai">
+        {aiProjects.map((p, i) => (
+          <li class="ai__card card" data-reveal data-i={String(i % 2)}>
+            <h3 class="ai__title">{p.title[lang]}</h3>
+            <dl class="ai__facts">
+              <div>
+                <dt>{t('ai.problem')}</dt>
+                <dd>{p.problem[lang]}</dd>
+              </div>
+              <div>
+                <dt>{t('ai.architecture')}</dt>
+                <dd>{p.architecture[lang]}</dd>
+              </div>
+              <div>
+                <dt>{t('ai.measured')}</dt>
+                <dd>{p.measured[lang]}</dd>
+              </div>
+              <div>
+                <dt>{t('ai.lessons')}</dt>
+                <dd>{p.lessons[lang]}</dd>
+              </div>
+            </dl>
+            <ul class="ai__stack">
+              {p.stack.map((s) => (
+                <li class="tag">{s}</li>
+              ))}
+            </ul>
+            <a class="ai__link" href={p.link.href} rel="noopener" target="_blank">
+              {p.link.label[lang]}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .ai {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ai__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding: var(--space-m);
+  }
+
+  .ai__title {
+    font-size: var(--step-2);
+    letter-spacing: -0.02em;
+  }
+
+  .ai__facts {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+  }
+
+  .ai__facts dt {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg-muted);
+  }
+
+  .ai__facts dd {
+    margin: 4px 0 0;
+    line-height: 1.55;
+  }
+
+  .ai__stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .ai__link {
+    margin-top: auto;
+    color: var(--accent);
+    font-weight: 600;
+  }
+</style>

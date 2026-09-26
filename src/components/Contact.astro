@@ -1,16 +1,29 @@
 ---
-import { useTranslations, type Lang } from '../i18n/ui';
+import { useTranslations, localePath, routePath, type Lang } from '../i18n/ui';
 import SplitWords from './SplitWords.astro';
 import { site } from '../data/site';
+import { getNotes } from '../data/notes';
 
 interface Props {
   lang: Lang;
+  title: string;
+  lead: string;
+  mailSubject: string;
+  /** Rendered on the /services page: the footer links back home instead. */
+  onServices?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, title, lead, mailSubject, onServices = false } = Astro.props;
 const t = useTranslations(lang);
-const mailto = `mailto:${site.email}?subject=${encodeURIComponent(t('contact.mailSubject'))}`;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(mailSubject)}`;
 const year = new Date().getFullYear();
+const hasNotes = (await getNotes()).length > 0;
+const footerLinks = [
+  onServices
+    ? { href: localePath(lang), label: t('nav.home') }
+    : { href: routePath(lang, 'services/'), label: t('nav.services') },
+  ...(hasNotes ? [{ href: '/notes/', label: 'Notes' }] : []),
+];
 ---
 
 <section id="contact" class="contact" aria-labelledby="contact-title">
@@ -20,10 +33,10 @@ const year = new Date().getFullYear();
       {t('contact.eyebrow')}
     </p>
     <h2 id="contact-title" class="contact__title" data-split>
-      <SplitWords text={t('contact.title')} />
+      <SplitWords text={title} />
     </h2>
     <p class="contact__lead" data-reveal data-i="2">
-      {t('contact.lead')}
+      {lead}
     </p>
 
     <div class="contact__actions" data-reveal data-i="3">
@@ -69,6 +82,13 @@ const year = new Date().getFullYear();
     <p>
       © {year} {site.name}
     </p>
+    <ul class="footer__links">
+      {footerLinks.map((l) => (
+        <li>
+          <a href={l.href}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
     <p>{t('footer.built')}</p>
   </footer>
 </section>
@@ -187,5 +207,19 @@ const year = new Date().getFullYear();
     border-top: 1px solid var(--line);
     font-size: var(--step--1);
     color: var(--fg-muted);
+  }
+
+  .footer__links {
+    display: flex;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer__links a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>

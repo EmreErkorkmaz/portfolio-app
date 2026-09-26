@@ -52,6 +52,10 @@ const t = useTranslations(lang);
                     <h4 class="case__label">{t('cases.approach')}</h4>
                     <p>{c.approach[lang]}</p>
                   </div>
+                  <div class="case__impact">
+                    <h4 class="case__label">{t('cases.impact')}</h4>
+                    <p>{c.impact[lang]}</p>
+                  </div>
                 </div>
                 <ul class="case__stack">
                   {c.stack.map((s) => (
@@ -217,6 +221,10 @@ const t = useTranslations(lang);
     grid-template-columns: 1fr 1fr;
     gap: var(--space-m);
     color: var(--fg-muted);
+  }
+
+  .case__impact {
+    grid-column: 1 / -1;
   }
 
   .case__label {

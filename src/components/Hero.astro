@@ -10,38 +10,42 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const stats = [
-  { value: `${site.yearsOfExperience}+`, label: t('hero.stat.years') },
+  { value: String(site.since), label: t('hero.stat.since') },
   { value: 'M+', label: t('hero.stat.scale') },
-  { value: '10×', label: t('hero.stat.efficiency') },
+  { value: site.timezone, label: t('hero.stat.timezone') },
 ];
 
-// Rotating end of the headline: what the visitor gets, in their words.
+// Rotating part of the headline: the kinds of work a technical buyer hires for.
 const words: Record<Lang, string[]> = {
-  tr: ['web sitesine', 'online mağazaya', 'mobil uygulamaya', 'yazılıma'],
-  en: ['website', 'online store', 'mobile app', 'product'],
+  tr: ['Frontend mimarisi', 'Full-stack özellikler', 'Yapay zekâ ürünleri'],
+  en: ['frontend platforms', 'fullstack features', 'AI product features'],
 };
 
-// Plain-language promises for the marquee (technology names live in the Technical section).
+// Technical buyers read technology names here; keep to widely recognised terms.
 const marquee: Record<Lang, string[]> = {
   tr: [
-    'Web siteleri',
-    'Online mağazalar',
-    'Mobil uygulamalar',
-    'Hızlı açılış',
-    'Google’da görünürlük',
-    'Her ekrana uyumlu',
-    'Güvenli altyapı',
-    'Yayından sonra destek',
+    'TypeScript',
+    'React',
+    'Next.js',
+    'Node.js',
+    'GraphQL',
+    'Design system',
+    'PWA',
+    'Uçtan uca test',
+    'Web performansı',
+    'Web güvenliği',
   ],
   en: [
-    'Websites',
-    'Online stores',
-    'Mobile apps',
-    'Fast loading',
-    'Found on Google',
-    'Works on every screen',
-    'Secure by default',
-    'Support after launch',
+    'TypeScript',
+    'React',
+    'Next.js',
+    'Node.js',
+    'GraphQL',
+    'Design systems',
+    'PWA',
+    'End-to-end testing',
+    'Web performance',
+    'Web security',
   ],
 };
 const post = t('hero.title.post');
@@ -82,11 +86,11 @@ const post = t('hero.title.post');
     </p>
 
     <div class="hero__ctas" data-intro data-i="3">
-      <a class="btn btn--accent" href="#contact">
+      <a class="btn btn--accent" href={site.cv} download>
         {t('hero.cta.primary')}
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path
-            d="M5 12h14M13 6l6 6-6 6"
+            d="M12 4v12M6 11l6 6 6-6M5 20h14"
             fill="none"
             stroke="currentColor"
             stroke-width="2"
@@ -95,7 +99,7 @@ const post = t('hero.title.post');
           ></path>
         </svg>
       </a>
-      <a class="btn btn--ghost" href="#work">
+      <a class="btn btn--ghost" href="#contact">
         {t('hero.cta.secondary')}
       </a>
     </div>
@@ -212,7 +216,7 @@ const post = t('hero.title.post');
 
   .hero__title {
     max-width: 16ch;
-    font-size: clamp(2.4rem, 1.5rem + 4.4vw, 5.75rem);
+    font-size: clamp(2.2rem, 1.3rem + 4.4vw, 5.75rem);
     font-weight: 700;
     letter-spacing: -0.045em;
     line-height: 1.02;

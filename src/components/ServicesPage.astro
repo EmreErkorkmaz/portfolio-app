@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from './Nav.astro';
+import Services from './Services.astro';
+import Process from './Process.astro';
+import Faq from './Faq.astro';
+import Contact from './Contact.astro';
+import ScrollTop from './ScrollTop.astro';
+import SplitWords from './SplitWords.astro';
+import { smbFaq } from '../data/faq';
+import { smbProcess } from '../data/process';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+// Small-business offer (websites, online stores, apps), kept apart from the home page,
+// which speaks to engineering leads and agencies. Plain language, no jargon.
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<Base
+  lang={lang}
+  title={t('smb.meta.title')}
+  description={t('smb.meta.description')}
+  route="services/"
+  service
+>
+  <a class="skip-link" href="#main">
+    {t('skip')}
+  </a>
+  <Nav lang={lang} route="services/" />
+  <main id="main">
+    <section class="section smb-intro" aria-labelledby="smb-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow" data-reveal>
+            {t('smb.eyebrow')}
+          </p>
+          <h1 id="smb-title" class="section-title" data-split>
+            <SplitWords text={t('smb.title')} />
+          </h1>
+          <p class="section-lead" data-reveal data-i="1">
+            {t('smb.lead')}
+          </p>
+        </header>
+        <a class="btn btn--accent" href="#contact" data-reveal data-i="2">
+          {t('smb.cta')}
+        </a>
+      </div>
+    </section>
+    <Services lang={lang} />
+    <Process
+      lang={lang}
+      steps={smbProcess}
+      eyebrow={t('smb.process.eyebrow')}
+      title={t('smb.process.title')}
+    />
+    <Faq lang={lang} items={smbFaq} title={t('smb.faq.title')} />
+    <Contact
+      lang={lang}
+      title={t('smb.contact.title')}
+      lead={t('smb.contact.lead')}
+      mailSubject={t('smb.contact.mailSubject')}
+      onServices
+    />
+  </main>
+  <ScrollTop lang={lang} />
+</Base>
+
+<script>
+  import '../scripts/main.ts';
+</script>
+
+<style>
+  .smb-intro {
+    padding-top: calc(var(--nav-h) + var(--space-l));
+  }
+</style>

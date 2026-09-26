@@ -1,8 +1,11 @@
 import type { Localized } from '../i18n/ui';
 
-// Capability pillars for technical readers (CTOs, tech leads, recruiters). Kept short on
-// purpose: one sentence per pillar that says what it delivers, frameworks only as a small
-// "ecosystem" line. No per-item tags, skill levels or niche libraries.
+// Capability pillars for technical readers (CTOs, tech leads, agencies). One sentence per
+// pillar on what it delivers, then an "ecosystem" line of widely recognised technologies
+// the owner has confirmed. No skill levels, no niche libraries. Java/Spring Boot
+// ("learning but available" in Notion) and Go stay in these lists only, never in
+// headlines or summaries. An AI pillar is
+// added only when it is backed by finished projects (see src/data/ai.ts).
 export interface Capability {
   id: string;
   title: Localized;
@@ -15,47 +18,67 @@ export const capabilities: Capability[] = [
     id: 'frontend',
     title: { tr: 'Frontend ve performans', en: 'Frontend & performance' },
     body: {
-      tr: 'Web ve mobilde hızlı açılan, arama motorlarında görünen ve büyüdükçe bakımı kolay kalan arayüzler.',
-      en: 'Web and mobile interfaces that load fast, rank in search and stay maintainable as they grow.',
+      tr: 'Yüksek trafikli ürünler için sürdürülebilir arayüz mimarisi: design system’ler, PWA’lar, SSR ve gerçek zamanlı veri; hızlı ve güvenli kalan sayfalar.',
+      en: 'Maintainable UI architecture for high-traffic products: design systems, PWAs, SSR and real-time data, with pages that stay fast and secure.',
     },
-    ecosystem: ['React', 'Vue', 'Angular', 'Next.js', 'Astro', 'React Native', 'TypeScript'],
+    ecosystem: [
+      'TypeScript',
+      'React',
+      'Next.js',
+      'Angular',
+      'Vue',
+      'Redux',
+      'Tailwind CSS',
+      'Storybook',
+    ],
   },
   {
     id: 'backend',
     title: { tr: 'Backend ve API', en: 'Backend & APIs' },
     body: {
-      tr: 'Güvenli ve ölçeklenebilir servisler, doğru modellenmiş veri ve arayüzü asla bekletmeyen API’ler.',
-      en: 'Secure, scalable services, well-modelled data and APIs that never keep the interface waiting.',
+      tr: 'Bir özelliğin ihtiyaç duyduğu API’ler ve servisler; onları kullanacak arayüzle birlikte tasarlanmış.',
+      en: 'The APIs and services a feature depends on, designed together with the interface that consumes them.',
     },
-    ecosystem: ['Node.js', 'NestJS', 'Java', 'Spring Boot', 'PostgreSQL', 'MongoDB', 'Redis'],
+    ecosystem: [
+      'Node.js',
+      'Express',
+      'NestJS',
+      'GraphQL',
+      'REST',
+      'WebSockets',
+      'PostgreSQL',
+      'MongoDB',
+      'Go (Fiber)',
+      'Java / Spring Boot',
+    ],
   },
   {
-    id: 'cloud',
-    title: { tr: 'Bulut ve kalite', en: 'Cloud & quality' },
+    id: 'delivery',
+    title: { tr: 'Test ve teslimat', en: 'Testing & delivery' },
     body: {
-      tr: 'Her değişikliği otomatik test edip güvenle yayına alan, izlenebilir ve güvenli bir teslimat hattı.',
-      en: 'A delivery pipeline that tests and ships every change automatically, observable and secure.',
+      tr: 'Pipeline’a bağlı birim, entegrasyon ve uçtan uca testler; değişiklikler güvenle yayına çıkar.',
+      en: 'Unit, integration and end-to-end tests wired into the pipeline, so changes ship with confidence.',
     },
-    ecosystem: ['Docker', 'GitHub Actions', 'AWS', 'Cloudflare', 'Playwright', 'Jest'],
+    ecosystem: ['Playwright', 'Cypress', 'React Testing Library', 'Docker', 'Git'],
   },
 ];
 
 // How the work gets done; shown as a single line under the capability grid.
 export const practices: Localized<string[]> = {
   tr: [
-    'Agile / Scrum',
     'Code review',
-    'Test odaklı teslimat',
+    'Otomatik testler',
     'Dokümantasyon',
     'AI destekli geliştirme',
-    'Uzaktan ekip çalışması',
+    'Uzaktan, asenkron çalışma',
+    'Agile / Scrum',
   ],
   en: [
-    'Agile / Scrum',
     'Code review',
-    'Test-driven delivery',
+    'Automated testing',
     'Documentation',
     'AI-assisted development',
-    'Remote collaboration',
+    'Remote, async collaboration',
+    'Agile / Scrum',
   ],
 };
