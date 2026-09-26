@@ -10,11 +10,12 @@ export const ui = {
     'meta.description':
       'Serbest yazılım geliştirici Emre Erkorkmaz: işletmeler için hızlı web siteleri, online mağazalar ve mobil uygulamalar. Ücretsiz ön görüşme için iletişime geçin.',
     skip: 'İçeriğe geç',
-    'nav.services': 'Hizmetler',
+    'nav.services': 'İşletmeler için',
     'nav.cases': 'İşler',
     'nav.stack': 'Teknik',
     'nav.process': 'Süreç',
     'nav.faq': 'SSS',
+    'nav.ai': 'Yapay zekâ',
     'nav.contact': 'İletişim',
     'nav.lang': 'Switch to English',
     'theme.toggle': 'Temayı değiştir',
@@ -75,17 +76,34 @@ export const ui = {
     'notfound.title': 'Sayfa bulunamadı',
     'notfound.lead': 'Aradığınız sayfa taşınmış ya da hiç var olmamış olabilir.',
     'notfound.back': 'Ana sayfaya dön',
+    'smb.meta.title': 'İşletmeler için web sitesi, online mağaza ve uygulama — Emre Erkorkmaz',
+    'smb.meta.description':
+      'Serbest yazılım geliştirici Emre Erkorkmaz: işletmeler için hızlı web siteleri, online mağazalar ve mobil uygulamalar. Ücretsiz ön görüşme için iletişime geçin.',
+    'smb.eyebrow': 'İşletmeler için',
+    'smb.title': 'Fikrinizi çalışan bir web sitesine, mağazaya ya da uygulamaya dönüştürüyorum.',
+    'smb.lead':
+      'Milyonlarca kullanıcıya hizmet veren ürünlerde edinilen deneyim, şimdi işletmenizin hizmetinde. Hızlı açılan, Google’da bulunan ve yıllarca sorunsuz çalışan yazılımlar.',
+    'smb.cta': 'Ücretsiz ön görüşme',
+    'smb.process.eyebrow': 'Süreç',
+    'smb.process.title': 'Nasıl çalışıyorum?',
+    'smb.faq.title': 'Aklınıza takılanlar',
+    'smb.contact.title': 'Projenizi konuşmaya hazır mısınız?',
+    'smb.contact.lead':
+      'Birkaç cümleyle ihtiyacınızı paylaşın; ücretsiz ön görüşmede kapsam, süre ve bütçe netleşsin. Teknik bilgi gerekmez.',
+    'smb.contact.mailSubject': 'Proje görüşmesi',
+    'nav.home': 'Ana sayfa',
   },
   en: {
     'meta.title': 'Emre Erkorkmaz — Freelance Full-Stack Engineer',
     'meta.description':
       'Freelance developer Emre Erkorkmaz builds fast websites, online stores and mobile apps for businesses. Get in touch for a free intro call.',
     skip: 'Skip to content',
-    'nav.services': 'Services',
+    'nav.services': 'For businesses',
     'nav.cases': 'Work',
     'nav.stack': 'Technical',
     'nav.process': 'Process',
     'nav.faq': 'FAQ',
+    'nav.ai': 'AI work',
     'nav.contact': 'Contact',
     'nav.lang': 'Türkçeye geç',
     'theme.toggle': 'Toggle theme',
@@ -146,6 +164,22 @@ export const ui = {
     'notfound.title': 'Page not found',
     'notfound.lead': 'The page you are looking for has moved or never existed.',
     'notfound.back': 'Back to home',
+    'smb.meta.title': 'Websites, online stores and apps for businesses — Emre Erkorkmaz',
+    'smb.meta.description':
+      'Freelance developer Emre Erkorkmaz builds fast websites, online stores and mobile apps for businesses. Get in touch for a free intro call.',
+    'smb.eyebrow': 'For businesses',
+    'smb.title': 'I turn your idea into a working website, store or app.',
+    'smb.lead':
+      'Experience from products serving millions of users, now working for your business. Software that loads fast, gets found on Google and runs smoothly for years.',
+    'smb.cta': 'Book a free intro call',
+    'smb.process.eyebrow': 'Process',
+    'smb.process.title': 'How I work',
+    'smb.faq.title': 'Common questions',
+    'smb.contact.title': 'Ready to talk about your project?',
+    'smb.contact.lead':
+      'Share your needs in a few sentences; the free intro call pins down scope, timeline and budget. No technical knowledge needed.',
+    'smb.contact.mailSubject': 'Project inquiry',
+    'nav.home': 'Home',
   },
 } as const satisfies Record<Lang, Record<string, string>>;
 
@@ -157,4 +191,9 @@ export function useTranslations(lang: Lang) {
 
 export function localePath(lang: Lang, hash = ''): string {
   return (lang === defaultLang ? '/' : `/${lang}/`) + hash;
+}
+
+/** Path of a route in a given language, e.g. routePath('tr', 'services/') → '/tr/services/'. */
+export function routePath(lang: Lang, route = ''): string {
+  return localePath(lang) + route;
 }

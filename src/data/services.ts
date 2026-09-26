@@ -1,6 +1,6 @@
 import type { Localized } from '../i18n/ui';
 
-export type ServiceIcon = 'web' | 'store' | 'mobile' | 'improve' | 'rocket' | 'team';
+export type ServiceIcon = 'web' | 'store' | 'mobile' | 'improve' | 'rocket';
 
 // First layer: what the client gets, written from the client's side (benefit first,
 // present tense). Technology is a footnote.
@@ -158,35 +158,6 @@ export const services: Service[] = [
     tech: {
       tr: ['Performans analizi', 'Test otomasyonu', 'Refactoring'],
       en: ['Performance audit', 'Test automation', 'Refactoring'],
-    },
-  },
-  {
-    id: 'team',
-    icon: 'team',
-    title: { tr: 'Ekibinize geliştirici desteği', en: 'An extra developer for your team' },
-    body: {
-      tr: 'İşe alım süreci beklemeden ekibinize deneyimli bir geliştirici. Yoğun dönemde hız, kritik projede güvence.',
-      en: 'An experienced developer on your team without a hiring process. Speed in busy periods, assurance on critical projects.',
-    },
-    bestFor: {
-      tr: 'Teslim tarihine yetişmesi gereken şirketler ve kurum içi yazılım ekipleri',
-      en: 'Companies facing a deadline and in-house software teams',
-    },
-    includes: {
-      tr: [
-        'Saatlik, günlük ya da uzun dönem çalışma',
-        'Ekibinizin araç ve süreçlerine hızlı uyum',
-        'Kalıcı kalite: testler ve dokümantasyon',
-      ],
-      en: [
-        'Hourly, daily or long-term engagement',
-        'Quick fit with your tools and processes',
-        'Lasting quality: tests and documentation',
-      ],
-    },
-    tech: {
-      tr: ['Frontend', 'Backend', 'Code review'],
-      en: ['Frontend', 'Backend', 'Code review'],
     },
   },
 ];

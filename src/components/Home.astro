@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Nav from './Nav.astro';
 import Hero from './Hero.astro';
-import Services from './Services.astro';
 import Cases from './Cases.astro';
 import Stack from './Stack.astro';
 import Process from './Process.astro';
@@ -11,6 +10,8 @@ import Contact from './Contact.astro';
 import ScrollTop from './ScrollTop.astro';
 import Faq from './Faq.astro';
 import { useTranslations, type Lang } from '../i18n/ui';
+import { smbFaq } from '../data/faq';
+import { smbProcess } from '../data/process';
 
 interface Props {
   lang: Lang;
@@ -27,13 +28,22 @@ const t = useTranslations(lang);
   <Nav lang={lang} />
   <main id="main">
     <Hero lang={lang} />
-    <Services lang={lang} />
     <Cases lang={lang} />
-    <Process lang={lang} />
-    <Faq lang={lang} />
+    <Process
+      lang={lang}
+      steps={smbProcess}
+      eyebrow={t('process.eyebrow')}
+      title={t('process.title')}
+    />
+    <Faq lang={lang} items={smbFaq} title={t('faq.title')} />
     <Stack lang={lang} />
     <Engagement lang={lang} />
-    <Contact lang={lang} />
+    <Contact
+      lang={lang}
+      title={t('contact.title')}
+      lead={t('contact.lead')}
+      mailSubject={t('contact.mailSubject')}
+    />
   </main>
   <ScrollTop lang={lang} />
 </Base>

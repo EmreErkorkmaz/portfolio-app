@@ -5,11 +5,14 @@ import { site } from '../data/site';
 
 interface Props {
   lang: Lang;
+  title: string;
+  lead: string;
+  mailSubject: string;
 }
 
-const { lang } = Astro.props;
+const { lang, title, lead, mailSubject } = Astro.props;
 const t = useTranslations(lang);
-const mailto = `mailto:${site.email}?subject=${encodeURIComponent(t('contact.mailSubject'))}`;
+const mailto = `mailto:${site.email}?subject=${encodeURIComponent(mailSubject)}`;
 const year = new Date().getFullYear();
 ---
 
@@ -20,10 +23,10 @@ const year = new Date().getFullYear();
       {t('contact.eyebrow')}
     </p>
     <h2 id="contact-title" class="contact__title" data-split>
-      <SplitWords text={t('contact.title')} />
+      <SplitWords text={title} />
     </h2>
     <p class="contact__lead" data-reveal data-i="2">
-      {t('contact.lead')}
+      {lead}
     </p>
 
     <div class="contact__actions" data-reveal data-i="3">

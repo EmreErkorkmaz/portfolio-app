@@ -1,21 +1,39 @@
 ---
-import { useTranslations, localePath, type Lang } from '../i18n/ui';
+import { useTranslations, localePath, routePath, type Lang } from '../i18n/ui';
+import { aiProjects } from '../data/ai';
 
 interface Props {
   lang: Lang;
+  /** Current route after the locale prefix: '' (home), 'services/' or a notes path. */
+  route?: string;
+  /** False when the page has no counterpart in the other language. */
+  translated?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, route = '', translated = true } = Astro.props;
 const t = useTranslations(lang);
 const other: Lang = lang === 'tr' ? 'en' : 'tr';
+const onServices = route === 'services/';
+// In-page anchors on the home page; absolute home anchors everywhere else.
+const home = route === '' ? '' : localePath(lang);
 
-const links = [
-  { href: '#services', label: t('nav.services') },
-  { href: '#work', label: t('nav.cases') },
-  { href: '#process', label: t('nav.process') },
-  { href: '#faq', label: t('nav.faq') },
-  { href: '#stack', label: t('nav.stack') },
-];
+const links = onServices
+  ? [
+      { href: '#services', label: t('services.eyebrow') },
+      { href: '#process', label: t('smb.process.eyebrow') },
+      { href: '#faq', label: t('nav.faq') },
+      { href: localePath(lang), label: t('nav.home') },
+    ]
+  : [
+      { href: `${home}#work`, label: t('nav.cases') },
+      ...(aiProjects.length ? [{ href: `${home}#ai`, label: t('nav.ai') }] : []),
+      { href: `${home}#stack`, label: t('nav.stack') },
+      { href: `${home}#process`, label: t('nav.process') },
+      { href: `${home}#faq`, label: t('nav.faq') },
+      { href: routePath(lang, 'services/'), label: t('nav.services') },
+    ];
+const contactHref = onServices ? '#contact' : `${home}#contact`;
+const switchHref = routePath(other, translated ? route : '');
 ---
 
 <header class="nav">
@@ -40,7 +58,7 @@ const links = [
       <a
         class="nav__icon-btn nav__lang"
         data-lang-switch
-        href={localePath(other)}
+        href={switchHref}
         hreflang={other}
         lang={other}
         aria-label={t('nav.lang')}
@@ -61,7 +79,7 @@ const links = [
           ></path>
         </svg>
       </button>
-      <a class="btn btn--accent nav__cta" href="#contact">
+      <a class="btn btn--accent nav__cta" href={contactHref}>
         {t('nav.contact')}
       </a>
     </div>

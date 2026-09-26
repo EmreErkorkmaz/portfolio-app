@@ -1,13 +1,13 @@
 import type { Localized } from '../i18n/ui';
 
-// Plain-language answers to what non-technical clients ask first.
-// Also emitted as FAQPage structured data by Faq.astro.
+// FAQ items; each list is also emitted as FAQPage structured data by Faq.astro.
 export interface FaqItem {
   q: Localized;
   a: Localized;
 }
 
-export const faq: FaqItem[] = [
+// Plain-language answers to what non-technical clients ask first (the /services page).
+export const smbFaq: FaqItem[] = [
   {
     q: {
       tr: 'Teknik bilgim yok, sorun olur mu?',

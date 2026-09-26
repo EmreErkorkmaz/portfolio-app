@@ -1,14 +1,16 @@
 ---
-import { useTranslations, type Lang } from '../i18n/ui';
+import type { Lang } from '../i18n/ui';
 import SplitWords from './SplitWords.astro';
-import { process } from '../data/process';
+import type { Step } from '../data/process';
 
 interface Props {
   lang: Lang;
+  steps: Step[];
+  eyebrow: string;
+  title: string;
 }
 
-const { lang } = Astro.props;
-const t = useTranslations(lang);
+const { lang, steps, eyebrow, title } = Astro.props;
 ---
 
 <section id="process" class="section process" aria-labelledby="process-title" data-process>
@@ -16,17 +18,17 @@ const t = useTranslations(lang);
     <div class="container">
       <header class="section-head">
         <p class="eyebrow" data-reveal>
-          {t('process.eyebrow')}
+          {eyebrow}
         </p>
         <h2 id="process-title" class="section-title" data-split>
-          <SplitWords text={t('process.title')} />
+          <SplitWords text={title} />
         </h2>
       </header>
     </div>
 
     <div class="process__viewport">
       <ol class="process__track container">
-        {process.map((step, i) => (
+        {steps.map((step, i) => (
           <li class="step" data-reveal data-i={String(i)}>
             <span class="step__num" aria-hidden="true">
               {String(i + 1).padStart(2, '0')}

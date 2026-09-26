@@ -5,7 +5,8 @@ export interface Step {
   body: Localized;
 }
 
-export const process: Step[] = [
+// Small-business project flow (the /services page).
+export const smbProcess: Step[] = [
   {
     title: { tr: 'Keşif', en: 'Discovery' },
     body: {

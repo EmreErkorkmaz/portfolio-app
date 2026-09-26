@@ -1,7 +1,7 @@
 ---
 import { Font } from 'astro:assets';
 import '../styles/global.css';
-import { defaultLang, languages, type Lang } from '../i18n/ui';
+import { defaultLang, languages, routePath, type Lang } from '../i18n/ui';
 import { site } from '../data/site';
 
 interface Props {
@@ -9,36 +9,56 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  /** Language-neutral route after the locale prefix, e.g. '' (home) or 'services/'. */
+  route?: string;
+  /** False for pages that exist in one language only (no hreflang alternates). */
+  translated?: boolean;
+  /** Adds ProfessionalService structured data (the small-business services page). */
+  service?: boolean;
 }
 
-const { lang, title, description, noindex = false } = Astro.props;
+const {
+  lang,
+  title,
+  description,
+  noindex = false,
+  route = '',
+  translated = true,
+  service = false,
+} = Astro.props;
 
-const pathFor = (l: Lang) => (l === defaultLang ? '/' : `/${l}/`);
+const pathFor = (l: Lang) => routePath(l, route);
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(`/og-${lang}.png`, Astro.site);
+
+const person = {
+  '@type': 'Person',
+  '@id': `${Astro.site}#person`,
+  name: site.name,
+  jobTitle: 'Senior Frontend / Fullstack Engineer',
+  email: `mailto:${site.email}`,
+  url: Astro.site?.toString(),
+  sameAs: [site.linkedin, site.github],
+  knowsLanguage: ['tr', 'en'],
+  address: { '@type': 'PostalAddress', addressLocality: 'Yalova', addressCountry: 'TR' },
+};
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Person',
-      '@id': `${Astro.site}#person`,
-      name: site.name,
-      jobTitle: 'Freelance Full-Stack Engineer',
-      email: `mailto:${site.email}`,
-      url: Astro.site?.toString(),
-      sameAs: [site.linkedin, site.github],
-      knowsLanguage: ['tr', 'en'],
-      address: { '@type': 'PostalAddress', addressLocality: 'Yalova', addressCountry: 'TR' },
-    },
-    {
-      '@type': 'ProfessionalService',
-      name: `${site.name} — Software Development`,
-      url: Astro.site?.toString(),
-      founder: { '@id': `${Astro.site}#person` },
-      areaServed: 'Worldwide',
-      description,
-    },
+    person,
+    ...(service
+      ? [
+          {
+            '@type': 'ProfessionalService',
+            name: `${site.name} — Software Development`,
+            url: canonical.toString(),
+            founder: { '@id': `${Astro.site}#person` },
+            areaServed: 'Worldwide',
+            description,
+          },
+        ]
+      : []),
   ],
 };
 
@@ -50,7 +70,7 @@ const bootScript = `(()=>{const d=document.documentElement;d.classList.add('js')
 // English lives at "/". Visitors whose explicit choice (saved by the language switch) or,
 // failing that, primary browser language is Turkish are sent to "/tr/" before anything
 // renders. Only the default-language home page carries this; "/tr/" never redirects.
-const isDefaultHome = lang === defaultLang && !noindex;
+const isDefaultHome = lang === defaultLang && route === '' && !noindex;
 const langScript = `(()=>{try{let l=null;try{l=localStorage.getItem('lang')}catch(e){}if(!l)l=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase().slice(0,2);if(l==='tr')location.replace('/tr/'+location.search+location.hash)}catch(e){}})()`;
 ---
 
@@ -65,10 +85,13 @@ const langScript = `(()=>{try{let l=null;try{l=localStorage.getItem('lang')}catc
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     {!noindex &&
+      translated &&
       Object.keys(languages).map((l) => (
         <link rel="alternate" hreflang={l} href={new URL(pathFor(l as Lang), Astro.site)} />
       ))}
-    {!noindex && <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />}
+    {!noindex && translated && (
+      <link rel="alternate" hreflang="x-default" href={new URL(pathFor(defaultLang), Astro.site)} />
+    )}
 
     <meta name="theme-color" content="#f4f2ec" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0b0b0f" media="(prefers-color-scheme: dark)" />
