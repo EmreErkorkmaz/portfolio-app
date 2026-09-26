@@ -1,4 +1,8 @@
-name: CI/CD
+name: CI
+
+# Checks only. Deployment is done by Cloudflare Workers Builds (Git-connected Worker
+# "emre-erkorkmaz"), which deploys every push to main. Branch protection on main
+# (PR required + this "Build & audit" check) is what keeps unchecked code off the site.
 
 on:
   pull_request:
@@ -15,11 +19,12 @@ permissions:
 jobs:
   build:
     name: Build & audit
-    runs-on: ubuntu-latest
+    # Pinned: Lighthouse needs Chrome, and ubuntu-latest moves to a new image on 2026-10-19.
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -37,8 +42,9 @@ jobs:
 
       - name: Upload Lighthouse reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: lighthouse
-          path: .lighthouseci
+          name: lighthouse-reports
+          path: lighthouse-reports
+          if-no-files-found: warn
           retention-days: 14

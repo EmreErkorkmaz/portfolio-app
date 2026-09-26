@@ -25,6 +25,10 @@ pnpm-debug.log*
 
 # lighthouse ci
 .lighthouseci/
+lighthouse-reports/
 
 # private blocklist for tools/verify-privacy.mjs (CI uses the PRIVACY_BLOCKLIST secret)
 .privacy-blocklist
+
+# wrangler local state
+.wrangler/
