@@ -4,18 +4,18 @@ import sharp from 'sharp';
 
 const cards = {
   tr: {
-    kicker: 'EMRE ERKORKMAZ · SERBEST YAZILIM GELİŞTİRİCİ',
-    line1: 'Fikrinizi, çalışan bir',
-    line2: 'yazılıma dönüştürüyorum.',
-    tag: 'Yeni projelere açık',
-    right: 'Web siteleri · Online mağazalar · Mobil',
+    kicker: 'EMRE ERKORKMAZ · KIDEMLİ FRONTEND / FULL-STACK MÜHENDİS',
+    line1: 'TypeScript ve React,',
+    line2: 'canlı ortam ölçeğinde.',
+    tag: 'Uzaktan sözleşmeli işlere açık',
+    right: 'React · Next.js · Node.js · UTC+3',
   },
   en: {
-    kicker: 'EMRE ERKORKMAZ · FREELANCE SOFTWARE DEVELOPER',
-    line1: 'I turn your idea into',
-    line2: 'a working product.',
-    tag: 'Available for new projects',
-    right: 'Websites · Online stores · Mobile apps',
+    kicker: 'EMRE ERKORKMAZ · SENIOR FRONTEND / FULLSTACK ENGINEER',
+    line1: 'TypeScript and React,',
+    line2: 'at production scale.',
+    tag: 'Available for remote contracts',
+    right: 'React · Next.js · Node.js · UTC+3',
   },
 };
 

@@ -6,9 +6,9 @@ export const defaultLang: Lang = 'en';
 
 export const ui = {
   tr: {
-    'meta.title': 'Emre Erkorkmaz — Freelance Full-Stack Engineer',
+    'meta.title': 'Emre Erkorkmaz — Kıdemli Frontend / Full-Stack Mühendis',
     'meta.description':
-      'Serbest yazılım geliştirici Emre Erkorkmaz: işletmeler için hızlı web siteleri, online mağazalar ve mobil uygulamalar. Ücretsiz ön görüşme için iletişime geçin.',
+      'Uzaktan sözleşmeli işler için kıdemli TypeScript mühendisi: React ve Next.js arayüzleri, Node.js API’leri, design system’ler ve yapay zekâ destekli ürün özellikleri. Türkiye, UTC+3.',
     skip: 'İçeriğe geç',
     'nav.services': 'İşletmeler için',
     'nav.cases': 'İşler',
@@ -103,9 +103,9 @@ export const ui = {
     'nav.home': 'Ana sayfa',
   },
   en: {
-    'meta.title': 'Emre Erkorkmaz — Freelance Full-Stack Engineer',
+    'meta.title': 'Emre Erkorkmaz — Senior Frontend / Fullstack Engineer',
     'meta.description':
-      'Freelance developer Emre Erkorkmaz builds fast websites, online stores and mobile apps for businesses. Get in touch for a free intro call.',
+      'Senior TypeScript engineer for remote contracts: React and Next.js frontends, Node.js APIs, design systems and AI-powered product features. Based in Türkiye, UTC+3.',
     skip: 'Skip to content',
     'nav.services': 'For businesses',
     'nav.cases': 'Work',
