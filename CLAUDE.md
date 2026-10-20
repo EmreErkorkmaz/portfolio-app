@@ -12,4 +12,4 @@
 - No inline `style="..."` attributes: the Astro CSP (`security.csp`) only hashes `<style>`/`<script>` blocks. Use data attributes (e.g. `data-i`) plus CSS.
 - Motion must stay compositor-only (transform/opacity) and respect `prefers-reduced-motion`. GSAP loads at idle after `load`, only for the Process scene on screens ≥ 1024px. ScrollTrigger's setup cancels in-flight smooth anchor scrolls, and `main.ts` resumes them, so keep that logic when touching the scene.
 - Zoom: pinch-zoom stays enabled (`touch-action: manipulation` only kills double-tap zoom). `user-scalable=no` / `maximum-scale` drops Lighthouse accessibility to 94 and breaks the CI threshold.
-- Before merging, run `npm run check && npm run build && npm run verify:privacy && npm run lhci`.
+- Before merging, run `npm run format:check && npm run check && npm run build && npm run verify:privacy && npm run lhci`.

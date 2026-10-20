@@ -20,15 +20,7 @@ export const capabilities: Capability[] = [
       tr: 'Yüksek trafikli ürünler için sürdürülebilir arayüz mimarisi: PWA’lar, SSR ve gerçek zamanlı veri; hızlı ve güvenli kalan sayfalar.',
       en: 'Maintainable UI architecture for high-traffic products: PWAs, SSR and real-time data, with pages that stay fast and secure.',
     },
-    ecosystem: [
-      'TypeScript',
-      'React',
-      'Next.js',
-      'Angular',
-      'Redux',
-      'Tailwind CSS',
-      'Storybook',
-    ],
+    ecosystem: ['TypeScript', 'React', 'Next.js', 'Angular', 'Redux', 'Tailwind CSS', 'Storybook'],
   },
   {
     id: 'backend',
@@ -37,14 +29,7 @@ export const capabilities: Capability[] = [
       tr: 'Bir özelliğin ihtiyaç duyduğu API’ler ve servisler; onları kullanacak arayüzle birlikte tasarlanmış.',
       en: 'The APIs and services a feature depends on, designed together with the interface that consumes them.',
     },
-    ecosystem: [
-      'Node.js',
-      'Express',
-      'GraphQL',
-      'REST',
-      'WebSockets',
-      'PostgreSQL',
-    ],
+    ecosystem: ['Node.js', 'Express', 'GraphQL', 'REST', 'WebSockets', 'PostgreSQL'],
   },
   {
     id: 'delivery',
