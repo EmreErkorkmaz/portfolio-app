@@ -8,7 +8,7 @@ export const ui = {
   tr: {
     'meta.title': 'Emre Erkorkmaz — Kıdemli Frontend / Full-Stack Mühendis',
     'meta.description':
-      'Uzaktan sözleşmeli işler için kıdemli TypeScript mühendisi: React ve Next.js arayüzleri, Node.js API’leri, design system’ler ve yapay zekâ destekli ürün özellikleri. Türkiye, UTC+3.',
+      'Uzaktan sözleşmeli işler için kıdemli TypeScript mühendisi: React ve Next.js arayüzleri, Node.js API’leri ve yapay zekâ destekli ürün özellikleri. Türkiye, UTC+3.',
     skip: 'İçeriğe geç',
     'nav.services': 'İşletmeler için',
     'nav.cases': 'İşler',
@@ -28,7 +28,7 @@ export const ui = {
     'hero.title.full':
       'Frontend mimarisi, full-stack özellikler ve yapay zekâ ürünleri için kıdemli TypeScript mühendisi.',
     'hero.lead':
-      '2021’den bu yana canlı ortamda React ve TypeScript ürünleri geliştiriyorum: milyonlarca günlük siparişi taşıyan bir PWA’nın çekirdeği, npm paketi olarak dağıtılan bir design system ve gerçek zamanlı finans arayüzleri. Şimdi bu deneyimi LLM destekli ürün özelliklerine taşıyorum; İngiltere, AB ve ABD’deki ekiplerle uzaktan sözleşmeli çalışmaya açığım.',
+      '2021’den bu yana canlı ortamda React ve TypeScript ürünleri geliştiriyorum: milyonlarca günlük siparişi taşıyan bir PWA’nın sipariş akışı, onun dayandığı Node.js endpoint’leri ve gerçek zamanlı finans arayüzleri. Şimdi bu deneyimi LLM destekli ürün özelliklerine taşıyorum; İngiltere, AB ve ABD’deki ekiplerle uzaktan sözleşmeli çalışmaya açığım.',
     'hero.cta.primary': 'CV’yi indir (İngilizce)',
     'hero.cta.secondary': 'İletişime geç',
     'hero.stat.since': 'yılından beri canlı ortamda',
@@ -105,7 +105,7 @@ export const ui = {
   en: {
     'meta.title': 'Emre Erkorkmaz — Senior Frontend / Fullstack Engineer',
     'meta.description':
-      'Senior TypeScript engineer for remote contracts: React and Next.js frontends, Node.js APIs, design systems and AI-powered product features. Based in Türkiye, UTC+3.',
+      'Senior TypeScript engineer for remote contracts: React and Next.js frontends, Node.js APIs and AI-powered product features. Based in Türkiye, UTC+3.',
     skip: 'Skip to content',
     'nav.services': 'For businesses',
     'nav.cases': 'Work',
@@ -125,7 +125,7 @@ export const ui = {
     'hero.title.full':
       'Senior TypeScript engineer for frontend platforms, fullstack features and AI product features.',
     'hero.lead':
-      'Since 2021 I have built production React and TypeScript products: the core of a PWA handling millions of daily orders, a design system shipped as npm packages and real-time finance UIs. Now extending that into LLM-powered product features, on remote contracts with UK, EU and US teams.',
+      'Since 2021 I have built production React and TypeScript products: the order flow of a PWA handling millions of daily orders, the Node.js endpoints it depends on and real-time finance UIs. Now extending that into LLM-powered product features, on remote contracts with UK, EU and US teams.',
     'hero.cta.primary': 'Download CV',
     'hero.cta.secondary': 'Get in touch',
     'hero.stat.since': 'shipping to production since',

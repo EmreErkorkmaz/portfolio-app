@@ -40,43 +40,14 @@ export const cases: CaseStudy[] = [
       en: 'A business-critical order flow under high traffic, with web releases blocked by the mobile apps’ code freezes.',
     },
     approach: {
-      tr: 'PWA’nın istemci tarafı çekirdek mantığı ve sipariş yaşam döngüsünün sahipliği; PWA’nın native webview’lara entegrasyonu ve push bildirimleri gibi native yeteneklerin web katmanına açılması; Playwright ile uçtan uca test pipeline’ları. Aynı platformda, frontend’in ihtiyaç duyduğu REST API endpoint’lerini Node.js, Express ve NestJS ile geliştirme.',
-      en: 'Owned the PWA’s client-side core logic and order life-cycle flow; integrated the PWA into native webviews and exposed native capabilities such as push notifications to the web layer; set up Playwright end-to-end pipelines. On the same platform, built the REST API endpoints the frontend depended on with Node.js, Express and NestJS.',
+      tr: 'Sipariş yaşam döngüsünün sahipliği: yüklemede REST ile anlık görüntü, yeni sipariş ve durum değişiklikleri için WebSocket olayları, polling yerine bağlantı durumu göstergesi ve elle yenileme. PWA’nın native webview’lara entegrasyonu ve push bildirimleri gibi native yeteneklerin web katmanına açılması. Frontend’in ihtiyaç duyduğu REST API endpoint’lerini Node.js ve Express ile geliştirme; Node.js BFF’e eklenen genel bir proxy endpoint’i.',
+      en: 'Owned the order life-cycle flow: a REST snapshot on load, WebSocket events for new orders and status changes, and a connection-state indicator with manual refetch instead of polling. Integrated the PWA into native webviews and exposed native capabilities such as push notifications to the web layer. Built the REST API endpoints the frontend depended on with Node.js and Express, and added a generic proxy endpoint to the Node.js BFF.',
     },
     impact: {
-      tr: 'Web sürümleri mobil code freeze’lerden bağımsız yayına çıkıyor; iş ortakları web katmanından push bildirimi alıyor; uçtan uca testler kod kapsamını ve yayın güvenini belirgin şekilde artırdı.',
-      en: 'Web releases ship independently of mobile code freezes; business partners receive push notifications from the web layer; end-to-end pipelines significantly raised coverage and release confidence.',
+      tr: 'Web sürümleri mobil code freeze’lerden bağımsız yayına çıkıyor; iş ortakları web katmanından push bildirimi alıyor; yeni gateway endpoint’leri BFF’te kod değişikliği ve ayrı bir deploy gerektirmiyor.',
+      en: 'Web releases ship independently of mobile code freezes; business partners receive push notifications from the web layer; new gateway endpoints no longer need BFF code changes or a separate deploy.',
     },
-    stack: ['React', 'TypeScript', 'PWA', 'Native webviews', 'Playwright', 'Node.js'],
-  },
-  {
-    id: 'design-system',
-    sector: { tr: 'Hızlı teslimat platformu', en: 'Quick-commerce platform' },
-    title: {
-      tr: 'npm paketi olarak dağıtılan bir design system',
-      en: 'A design system shipped as npm packages',
-    },
-    summary: {
-      tr: 'Tailwind CSS eklentisi ve Storybook dokümantasyonuyla birlikte, ekibin üzerine inşa ettiği merkezi React component kütüphanesi.',
-      en: 'A central React component library with a Tailwind CSS plugin and Storybook docs, published as npm packages for the team to build on.',
-    },
-    metric: {
-      value: { tr: 'npm', en: 'npm' },
-      label: { tr: 'paketleri + Storybook', en: 'packages + Storybook' },
-    },
-    challenge: {
-      tr: 'Aynı arayüz parçalarının tekrar tekrar yazılması ve her sürümde bozulan tasarım tutarlılığı.',
-      en: 'The same UI pieces rebuilt again and again, and design consistency eroding with every release.',
-    },
-    approach: {
-      tr: 'Erişilebilir headless bileşenler üzerine kurulu, harici npm paketi olarak yayınlanan component kütüphanesi; aynı paketten dışa aktarılan Tailwind CSS eklentisi; Storybook dokümantasyonu. Üzerine, standart component’ler üreten yapay zekâ destekli akışlar (Claude, GitHub Copilot).',
-      en: 'A component library built on accessible headless primitives, published as external npm packages with a Tailwind CSS plugin exported from the same package and documented in Storybook. On top of it, AI-assisted workflows (Claude, GitHub Copilot) that generate standard components.',
-    },
-    impact: {
-      tr: 'Arayüz bileşenleri ve stiller için tek, sürümlenen ve dokümante edilmiş kaynak; yeni component’ler sıfırdan değil, standart yapı taşlarından başlıyor.',
-      en: 'One versioned, documented source for UI components and styling; new components start from standard building blocks instead of from scratch.',
-    },
-    stack: ['React', 'TypeScript', 'Tailwind CSS', 'Storybook', 'npm', 'AI-assisted workflows'],
+    stack: ['React', 'TypeScript', 'PWA', 'WebSockets', 'Native webviews', 'Node.js'],
   },
   {
     id: 'realtime',
@@ -86,8 +57,8 @@ export const cases: CaseStudy[] = [
       en: 'Real-time finance UIs without pagination',
     },
     summary: {
-      tr: 'Büyük ve canlı veri setlerini sayfalamadan gösteren, React ve Angular ile geliştirilmiş çok dilli B2B ve B2C finans uygulamaları; uygulamalar arasında paylaşılan kütüphaneler.',
-      en: 'Multilingual B2B and B2C finance apps in React and Angular that render large, live data sets without paging, plus libraries shared across apps.',
+      tr: 'Büyük ve canlı piyasa verisini sayfalamadan gösteren, React ve Angular ile geliştirilmiş çok dilli B2B ve B2C işlem uygulamaları; config ile çalışan bir form katmanı.',
+      en: 'Multilingual B2B and B2C trading apps in React and Angular that render large, live market data without paging, plus a config-driven form layer.',
     },
     metric: {
       value: { tr: 'Canlı', en: 'Live' },
@@ -98,12 +69,12 @@ export const cases: CaseStudy[] = [
       en: 'Following large, constantly streaming data sets without interruption across multilingual B2B and B2C interfaces.',
     },
     approach: {
-      tr: 'Gerçek zamanlı, büyük ölçekli veriyi frontend’de sayfalamadan gösteren React ve Angular arayüzleri; uygulamalar arasında paylaşılan özel form hook’u ve doğrulama kütüphanesi; React, Material UI, Redux ve Redux Saga ile yeniden kullanılabilir uygulama şablonu; React Testing Library ve Mock Service Worker ile birim testleri, Cypress ile uçtan uca testler.',
-      en: 'React and Angular interfaces that render real-time, large-scale data without frontend pagination; a custom form hook and validation library shared across applications; a reusable app template with React, Material UI, Redux and Redux Saga; unit tests with React Testing Library and Mock Service Worker, end-to-end tests with Cypress.',
+      tr: 'Gerçek zamanlı, büyük ölçekli veriyi frontend’de sayfalamadan gösteren React ve Angular arayüzleri; backend ağırlıklı geliştiricilerin tipli bir config’ten doğrulamalı, bağımlı alanlı form sayfaları çıkarmasını sağlayan form katmanı (Formik, Yup, Material UI); React, Material UI, Redux ve Redux Saga ile yeniden kullanılabilir uygulama şablonu; React Testing Library ve Mock Service Worker ile birim testleri, Cypress ile uçtan uca testler.',
+      en: 'React and Angular interfaces that render real-time, large-scale data without frontend pagination; a config-driven form layer (Formik, Yup, Material UI) that let backend-focused developers ship validated form pages with dependent fields from a typed config; a reusable app template with React, Material UI, Redux and Redux Saga; unit tests with React Testing Library and Mock Service Worker, end-to-end tests with Cypress.',
     },
     impact: {
-      tr: 'Büyük canlı veri tek görünümde gezilebilir kalıyor; ekipler uygulamalar arasında tek bir form ve doğrulama katmanı kullanıyor; yeni projeler hazır bir şablondan başlıyor.',
-      en: 'Large live data sets stay browsable in a single view; teams share one form and validation layer across apps; new projects start from a ready template.',
+      tr: 'Büyük canlı veri tek görünümde gezilebilir kalıyor; backend ağırlıklı geliştiriciler karmaşık form sayfalarını config’ten çıkarıyor; yeni projeler hazır bir şablondan başlıyor.',
+      en: 'Large live data sets stay browsable in a single view; backend-focused developers ship complex form pages from config; new projects start from a ready template.',
     },
     stack: ['React', 'Angular', 'TypeScript', 'Redux Saga', 'Material UI', 'Cypress'],
   },

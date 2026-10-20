@@ -139,8 +139,8 @@ export const faq: FaqItem[] = [
       en: 'Frontend only, or full stack?',
     },
     a: {
-      tr: 'Ağırlık frontend’de, full-stack yetkinlikle: frontend’de arayüz mimarisi, design system’ler ve performans; backend’de Node.js, Express ve NestJS ile REST API’ler, PostgreSQL ya da MongoDB ile.',
-      en: 'Frontend-led and full-stack capable: UI architecture, design systems and performance on the frontend; REST APIs with Node.js, Express and NestJS on the backend, on PostgreSQL or MongoDB.',
+      tr: 'Ağırlık frontend’de, full-stack yetkinlikle: frontend’de arayüz mimarisi ve performans; backend’de Node.js ve Express ile REST ve GraphQL API’ler.',
+      en: 'Frontend-led and full-stack capable: UI architecture and performance on the frontend; REST and GraphQL APIs with Node.js and Express on the backend.',
     },
   },
   {
