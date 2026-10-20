@@ -23,9 +23,9 @@ const github = field('github');
 
 const cv = {
   name: 'Emre Erkorkmaz',
-  title: 'Senior Frontend / Fullstack Engineer',
+  title: 'Senior Frontend / Full-Stack Engineer (React, TypeScript, Node.js)',
+  // No location on the CV (master_cv.json location_note).
   contact: [
-    'Yalova, Türkiye (UTC+3)',
     'Remote contracts',
     email,
     'emreerkorkmaz.dev',
@@ -33,30 +33,30 @@ const cv = {
     github.replace('https://', ''),
   ],
   summary:
-    'Frontend-led full-stack engineer shipping production React and TypeScript since 2021: the core of a PWA handling millions of daily orders, a design system published as npm packages, and real-time finance UIs. Builds the Node.js REST APIs a feature depends on, sets up end-to-end test pipelines, and is extending this work into LLM-powered product features. Available for remote contracts, hourly or daily.',
+    'Frontend-led full-stack engineer building production React and TypeScript products since 2021, together with the Node.js endpoints they depend on. On a quick-commerce platform, owned the order flow of a PWA handling millions of daily orders and added a generic proxy to the Node.js BFF that removed a deploy-and-test step from every new endpoint. Ramps up quickly on unfamiliar codebases and delivers to deadlines; available for remote contracts, hourly or daily.',
   experience: [
     {
       role: 'Software Engineer II, Frontend',
-      org: 'Quick-commerce platform (high-traffic delivery apps)',
+      org: 'Quick commerce and food delivery (food, local-shops and water apps)',
       dates: 'May 2023 – Sep 2026',
       bullets: [
-        'Owned the core client-side logic and order life-cycle flow of a PWA restaurant app handling millions of daily orders.',
-        'Integrated the PWA into native mobile webviews, decoupling web releases from mobile code freezes and exposing native capabilities such as push notifications to business partners.',
-        'Engineered the team’s centralised design system as external npm packages: a component library built on shadcn/ui and Base UI, a Tailwind CSS plugin exported from the same package, and Storybook documentation.',
-        'Set up AI-assisted workflows (Claude, GitHub Copilot) that generate standardised components on top of the design system.',
-        'Unblocked frontend delivery by building the REST API endpoints it depended on with Node.js, Express and NestJS.',
-        'Established Playwright end-to-end testing pipelines, significantly increasing code coverage and application reliability.',
-        'Worked with an external vendor to integrate an AI-powered live chat into the main customer web app, reducing customer-support costs by 80%.',
+        'Owned the order life-cycle flow of a PWA handling millions of daily orders: a REST snapshot on load, WebSocket events for new orders and status changes, and a connection-state indicator with manual refetch instead of polling.',
+        'Integrated the PWA into native mobile webviews, decoupling web releases from mobile code freezes and enabling native features such as push notifications for business partners.',
+        'Unblocked frontend delivery by building the REST API endpoints it depended on with Node.js and Express, and added a generic proxy endpoint to the BFF so new gateway endpoints no longer required BFF code changes.',
+        'Migrated legacy Redux Saga data flows to Redux Toolkit Query, caching paginated tables and search filters so revisited pages loaded from cache, with targeted invalidation on mutations.',
+        'Contributed to a centralized component library built on shadcn/ui and Base UI, published as external npm packages with a Tailwind CSS plugin exported from the same package, and documented in Storybook.',
+        'Set up an AI-assisted workflow (Claude, GitHub Copilot) for generating standardized components on the design system, cutting the time to add a component from about two hours to about ten minutes.',
+        'Was the technical point of contact for a vendor integrating an AI-powered live chat into the customer web app, defining how chat history and triggers were exchanged; the live chat cut support costs by 80%.',
+        'Built reusable Playwright utilities (login/logout, route navigation) so the QA team could reach any page directly and focus on end-to-end scenarios.',
       ],
     },
     {
       role: 'Frontend Developer',
-      org: 'Fintech company',
+      org: 'Online brokerage (fintech)',
       dates: 'Jun 2021 – Jan 2023',
       bullets: [
-        'Built multilingual B2C and B2B applications with React and Angular, rendering real-time, large-scale data without frontend pagination.',
-        'Created a custom form hook and a validation library shared across multiple applications.',
-        'Built a reusable application template with React, Material UI, Redux, Redux Saga and dark mode to speed up new projects.',
+        'Built multilingual B2C and B2B trading applications with React and Angular, rendering real-time, large-scale market data without frontend pagination.',
+        'Built a config-driven form layer (React, TypeScript, Formik, Yup, Material UI) that let backend-focused developers ship complex, validated form pages from a typed config, including dependent fields.',
         'Wrote unit tests with React Testing Library and Mock Service Worker; introduced Cypress for end-to-end testing.',
       ],
     },
@@ -70,22 +70,21 @@ const cv = {
       ],
     },
   ],
+  // Only skills master_cv.json marks show: 'always' and that the bullets above back up.
   skills: [
     [
       'Frontend',
-      'TypeScript, JavaScript, React, Next.js (SSR), Angular, Vue, Redux / Redux Saga, PWA, Tailwind CSS, Material UI, Storybook, design systems, npm package publishing',
+      'TypeScript, JavaScript, React, Next.js (SSR), Angular, PWA, Redux (Redux Saga, RTK Query), HTML5 / CSS3',
     ],
     [
-      'Backend',
-      'Node.js, Express, NestJS, GraphQL, REST APIs, WebSockets, PostgreSQL, MongoDB, OAuth / JWT, Go (Fiber), Java / Spring Boot',
+      'UI & design systems',
+      'Design systems, shadcn/ui, Base UI, Tailwind CSS, Material UI, Storybook, npm packages',
     ],
+    ['Backend & APIs', 'Node.js, Express, REST APIs, GraphQL, WebSockets, PostgreSQL'],
+    ['Testing', 'Playwright, Cypress, React Testing Library, Jest'],
     [
-      'Testing & delivery',
-      'Playwright, Cypress, React Testing Library, Mock Service Worker, Jest, Docker, GitHub Actions, Git',
-    ],
-    [
-      'Practices',
-      'Web performance, web security, code review, AI-assisted development (Claude, GitHub Copilot), remote and async collaboration',
+      'Tooling & AI',
+      'Git, Docker, CI/CD (GitHub Actions), AI-assisted development (Claude, GitHub Copilot)',
     ],
   ],
   education: 'B.Sc. Computer Engineering, Sakarya University, 2020',
@@ -109,15 +108,15 @@ const html = `<!doctype html>
   .title { font-size: 11.5pt; color: #d9542c; font-weight: 600; margin-top: 2pt; }
   .contact { display: flex; flex-wrap: wrap; gap: 2pt 10pt; margin-top: 6pt; color: #55535e; font-size: 8.8pt; }
   h2 { font-size: 8.4pt; text-transform: uppercase; letter-spacing: 0.12em; color: #55535e;
-       border-bottom: 1px solid #e3e1da; padding-bottom: 3pt; margin: 11pt 0 5pt; break-after: avoid; }
-  .job { margin-bottom: 7pt; break-inside: avoid; }
+       border-bottom: 1px solid #e3e1da; padding-bottom: 3pt; margin: 9pt 0 4pt; break-after: avoid; }
+  .job { margin-bottom: 6pt; break-inside: avoid; }
   .job header { display: flex; justify-content: space-between; gap: 12pt; }
   .role { font-weight: 700; }
   .org { color: #55535e; }
   .dates { color: #55535e; white-space: nowrap; }
   ul { margin: 3pt 0 0 12pt; }
   li { margin-bottom: 1.5pt; }
-  .skills { display: grid; grid-template-columns: 30mm 1fr; gap: 3pt 8pt; }
+  .skills { display: grid; grid-template-columns: 34mm 1fr; gap: 3pt 8pt; }
   .skills dt { font-weight: 700; }
   .note { margin-top: 10pt; color: #55535e; font-size: 8.4pt; }
 </style>

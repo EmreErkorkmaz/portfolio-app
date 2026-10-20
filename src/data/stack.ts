@@ -2,10 +2,9 @@ import type { Localized } from '../i18n/ui';
 
 // Capability pillars for technical readers (CTOs, tech leads, agencies). One sentence per
 // pillar on what it delivers, then an "ecosystem" line of widely recognised technologies
-// the owner has confirmed. No skill levels, no niche libraries. Java/Spring Boot
-// ("learning but available" in Notion) and Go stay in these lists only, never in
-// headlines or summaries. An AI pillar is
-// added only when it is backed by finished projects (see src/data/ai.ts).
+// the owner has confirmed and can back in depth. No skill levels, no niche libraries,
+// nothing listed only as "learning" or beginner level (owner's decision, 2026-10-20).
+// An AI pillar is added only when it is backed by finished projects (see src/data/ai.ts).
 export interface Capability {
   id: string;
   title: Localized;
@@ -18,19 +17,10 @@ export const capabilities: Capability[] = [
     id: 'frontend',
     title: { tr: 'Frontend ve performans', en: 'Frontend & performance' },
     body: {
-      tr: 'Yüksek trafikli ürünler için sürdürülebilir arayüz mimarisi: design system’ler, PWA’lar, SSR ve gerçek zamanlı veri; hızlı ve güvenli kalan sayfalar.',
-      en: 'Maintainable UI architecture for high-traffic products: design systems, PWAs, SSR and real-time data, with pages that stay fast and secure.',
+      tr: 'Yüksek trafikli ürünler için sürdürülebilir arayüz mimarisi: PWA’lar, SSR ve gerçek zamanlı veri; hızlı ve güvenli kalan sayfalar.',
+      en: 'Maintainable UI architecture for high-traffic products: PWAs, SSR and real-time data, with pages that stay fast and secure.',
     },
-    ecosystem: [
-      'TypeScript',
-      'React',
-      'Next.js',
-      'Angular',
-      'Vue',
-      'Redux',
-      'Tailwind CSS',
-      'Storybook',
-    ],
+    ecosystem: ['TypeScript', 'React', 'Next.js', 'Angular', 'Redux', 'Tailwind CSS', 'Storybook'],
   },
   {
     id: 'backend',
@@ -39,18 +29,7 @@ export const capabilities: Capability[] = [
       tr: 'Bir özelliğin ihtiyaç duyduğu API’ler ve servisler; onları kullanacak arayüzle birlikte tasarlanmış.',
       en: 'The APIs and services a feature depends on, designed together with the interface that consumes them.',
     },
-    ecosystem: [
-      'Node.js',
-      'Express',
-      'NestJS',
-      'GraphQL',
-      'REST',
-      'WebSockets',
-      'PostgreSQL',
-      'MongoDB',
-      'Go (Fiber)',
-      'Java / Spring Boot',
-    ],
+    ecosystem: ['Node.js', 'Express', 'GraphQL', 'REST', 'WebSockets', 'PostgreSQL'],
   },
   {
     id: 'delivery',
