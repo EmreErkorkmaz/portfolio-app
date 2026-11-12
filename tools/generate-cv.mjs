@@ -1,7 +1,7 @@
 // Renders the anonymised CV (public/cv-emre-erkorkmaz.pdf) with a local Chrome.
 // Run with: npm run cv   (set CHROME_PATH if Chrome is not in the default macOS location)
 //
-// Content source: Notion "master_cv.json", anonymised like the site: no company or
+// Content source: career-ops cv.md + modes/_custom.md (was Notion "master_cv.json"), anonymised like the site: no company or
 // product names, no phone number. The HTML is checked against the private blocklist
 // (.privacy-blocklist or PRIVACY_BLOCKLIST) before the PDF is written, because
 // verify:privacy does not read PDFs.
@@ -23,8 +23,8 @@ const github = field('github');
 
 const cv = {
   name: 'Emre Erkorkmaz',
-  title: 'Senior Frontend / Full-Stack Engineer (React, TypeScript, Node.js)',
-  // No location on the CV (master_cv.json location_note).
+  title: 'Senior Full-Stack Engineer (React, TypeScript, Node.js)',
+  // No location on the CV (career-ops modes/_profile.md location policy).
   contact: [
     'Remote contracts',
     email,
@@ -33,21 +33,27 @@ const cv = {
     github.replace('https://', ''),
   ],
   summary:
-    'Frontend-led full-stack engineer building production React and TypeScript products since 2021, together with the Node.js endpoints they depend on. On a quick-commerce platform, owned the order flow of a PWA handling millions of daily orders and added a generic proxy to the Node.js BFF that removed a deploy-and-test step from every new endpoint. Ramps up quickly on unfamiliar codebases and delivers to deadlines; available for remote contracts, hourly or daily.',
+    'Full-stack engineer building React frontends and the Node.js services behind them since 2021, for a quick-commerce and food-delivery platform with millions of daily orders and an online brokerage with real-time trading. Brought onto critical, deadline-bound work and trusted with large inherited codebases. Available for remote contracts, hourly or daily.',
+  competencies: [
+    'React & TypeScript',
+    'Node.js & Express',
+    'REST APIs & BFF',
+    'MongoDB & Redis',
+    'Next.js (SSR)',
+    'Docker & CI/CD (GitHub Actions)',
+    'Playwright & React Testing Library',
+    'AI-assisted development (Claude, GitHub Copilot)',
+  ],
   experience: [
     {
       role: 'Software Engineer II, Frontend',
-      org: 'Quick commerce and food delivery (food, local-shops and water apps)',
+      org: 'Quick commerce and food delivery',
       dates: 'May 2023 – Sep 2026',
       bullets: [
-        'Owned the order life-cycle flow of a PWA handling millions of daily orders: a REST snapshot on load, WebSocket events for new orders and status changes, and a connection-state indicator with manual refetch instead of polling.',
-        'Integrated the PWA into native mobile webviews, decoupling web releases from mobile code freezes and enabling native features such as push notifications for business partners.',
-        'Unblocked frontend delivery by building the REST API endpoints it depended on with Node.js and Express, and added a generic proxy endpoint to the BFF so new gateway endpoints no longer required BFF code changes.',
-        'Migrated legacy Redux Saga data flows to Redux Toolkit Query, caching paginated tables and search filters so revisited pages loaded from cache, with targeted invalidation on mutations.',
-        'Contributed to a centralized component library built on shadcn/ui and Base UI, published as external npm packages with a Tailwind CSS plugin exported from the same package, and documented in Storybook.',
-        'Set up an AI-assisted workflow (Claude, GitHub Copilot) for generating standardized components on the design system, cutting the time to add a component from about two hours to about ten minutes.',
-        'Was the technical point of contact for a vendor integrating an AI-powered live chat into the customer web app, defining how chat history and triggers were exchanged; the live chat cut support costs by 80%.',
-        'Built reusable Playwright utilities (login/logout, route navigation) so the QA team could reach any page directly and focus on end-to-end scenarios.',
+        'Shipped across five teams and three verticals (food, local shops, water), on both merchant and admin panels, including two years full-stack on the restaurant order flow, which handles millions of daily orders.',
+        "Maintained the team's Node.js BFF and services (Express, MongoDB, Redis), from new REST endpoints to security updates.",
+        "Brought the restaurant app's order and menu pages to mobile (PWA, then native webview) ahead of deadline; recognised with an internal company award.",
+        'Managed the technical side of an AI live chat integration with an external vendor; it cut customer-support costs by 80%.',
       ],
     },
     {
@@ -55,9 +61,9 @@ const cv = {
       org: 'Online brokerage (fintech)',
       dates: 'Jun 2021 – Jan 2023',
       bullets: [
-        'Built multilingual B2C and B2B trading applications with React and Angular, rendering real-time, large-scale market data without frontend pagination.',
-        'Built a config-driven form layer (React, TypeScript, Formik, Yup, Material UI) that let backend-focused developers ship complex, validated form pages from a typed config, including dependent fields.',
-        'Wrote unit tests with React Testing Library and Mock Service Worker; introduced Cypress for end-to-end testing.',
+        'Founding frontend engineer on critical new React projects, making their frontend architecture decisions.',
+        'Built and optimised real-time trading features on large volumes of live market data, across React, Angular and AngularJS projects.',
+        'Mentored junior developers and interviewed frontend candidates.',
       ],
     },
     {
@@ -65,29 +71,32 @@ const cv = {
       org: 'Software company (e-commerce and survey products)',
       dates: 'Mar 2021 – Jun 2021',
       bullets: [
-        'Developed a multilingual e-commerce application with server-side rendering using Next.js, TypeScript and Redux.',
-        'Delivered a survey product with React and GraphQL; turned responsive designs into semantic HTML.',
+        'Built the storefront of a multi-language e-commerce platform before launch (Next.js, SSR) and supported its admin panel.',
+        'Delivered a survey product with a points-based reward system (React, GraphQL).',
       ],
     },
   ],
-  // Only skills master_cv.json marks show: 'always' and that the bullets above back up.
+  projects: [
+    [
+      'emreerkorkmaz.dev',
+      'Bilingual business site for client enquiries; Lighthouse 100 in all four categories, deployed automatically to Cloudflare Workers with a GitHub Actions build-and-audit check on every pull request.',
+    ],
+  ],
+  // career-ops fullstack CV skills, minus Go and niche libraries (see CLAUDE.md).
   skills: [
     [
       'Frontend',
-      'TypeScript, JavaScript, React, Next.js (SSR), Angular, PWA, Redux (Redux Saga, RTK Query), HTML5 / CSS3',
+      'TypeScript, JavaScript, React, Next.js (SSR, Pages Router), PWA, Redux (Redux Saga, RTK Query), HTML5 / CSS3, Web accessibility (keyboard navigation, ARIA, semantic HTML)',
     ],
-    [
-      'UI & design systems',
-      'Design systems, shadcn/ui, Base UI, Tailwind CSS, Material UI, Storybook, npm packages',
-    ],
-    ['Backend & APIs', 'Node.js, Express, REST APIs, GraphQL, WebSockets, PostgreSQL'],
+    ['UI', 'Tailwind CSS, Material UI'],
+    ['Backend & APIs', 'Node.js, Express, REST APIs, GraphQL, WebSockets'],
+    ['Data', 'MongoDB, Redis, PostgreSQL'],
     ['Testing', 'Playwright, Cypress, React Testing Library, Jest'],
-    [
-      'Tooling & AI',
-      'Git, Docker, CI/CD (GitHub Actions), AI-assisted development (Claude, GitHub Copilot)',
-    ],
+    ['DevOps & cloud', 'Docker, CI/CD (GitHub Actions), Git (GitHub, GitLab, Bitbucket)'],
+    ['AI', 'AI-assisted development (Claude, GitHub Copilot)'],
   ],
-  education: 'B.Sc. Computer Engineering, Sakarya University, 2020',
+  education:
+    'B.Sc. Computer Engineering, Sakarya University, Faculty of Computer and Information Sciences, 2020',
   languages: 'English (C2), Turkish (native)',
   note: 'Company names are withheld for confidentiality and shared on request, together with references.',
 };
@@ -129,6 +138,9 @@ const html = `<!doctype html>
   <h2>Summary</h2>
   <p>${esc(cv.summary)}</p>
 
+  <h2>Core competencies</h2>
+  <p>${cv.competencies.map(esc).join(' • ')}</p>
+
   <h2>Experience</h2>
   ${cv.experience
     .map(
@@ -138,6 +150,9 @@ const html = `<!doctype html>
   </section>`,
     )
     .join('\n  ')}
+
+  <h2>Projects</h2>
+  ${cv.projects.map(([k, v]) => `<p><span class="role">${esc(k)}</span> · ${esc(v)}</p>`).join('')}
 
   <h2>Skills</h2>
   <dl class="skills">${cv.skills.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl>
